@@ -1,4 +1,5 @@
 import paises.Pais
+import paises.listaDePaises
 
 class Juego (val jugadores: List<Jugador>) {
     var mano: Int = 0

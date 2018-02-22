@@ -17,10 +17,11 @@ class MainApplication : Application() {
 
     val btnEjercitosArgentina = Button()
     val btnEjercitosChile = Button()
-    val argentina = Pais("Argentina", Continente.AMERICA_DEL_SUR, 0)
-    val chile = Pais("Chile", Continente.AMERICA_DEL_SUR, 1)
+    val argentina = Pais("Argentina", Continente.AMERICA_DEL_SUR, listOf("Argentina"))
+    val chile = Pais("Chile", Continente.AMERICA_DEL_SUR, listOf("Chile"))
 
     override fun start(primaryStage: Stage) {
+        Juego(listOf(Jugador(Color.ROJO)))
         primaryStage.title = "Hello World!"
         val btnArgentina = Button()
         val btnChile = Button()
@@ -35,15 +36,15 @@ class MainApplication : Application() {
             actualizarEjercitos()
         }
         btnEjercitosArgentina.text = "1"
-        btnEjercitosArgentina.onAction = EventHandler {
-            argentina.ejercitos++
-            actualizarEjercitos()
-        }
+//        btnEjercitosArgentina.onAction = EventHandler {
+//            ejercitosArgentine++
+//            actualizarEjercitos()
+//        }
         btnEjercitosChile.text = "1"
-        btnEjercitosChile.onAction = EventHandler {
-            chile.ejercitos++
-            actualizarEjercitos()
-        }
+//        btnEjercitosChile.onAction = EventHandler {
+//            ejercitosChile++
+//            actualizarEjercitos()
+//        }
 
         val grid = GridPane()
         grid.add(btnArgentina, 0, 0, 1, 1)
@@ -56,7 +57,7 @@ class MainApplication : Application() {
     }
 
     fun actualizarEjercitos() {
-        btnEjercitosArgentina.text = argentina.ejercitos.toString()
-        btnEjercitosChile.text = chile.ejercitos.toString()
+//        btnEjercitosArgentina.text = argentina.ejercitos.toString()
+//        btnEjercitosChile.text = chile.ejercitos.toString()
     }
 }
