@@ -1,5 +1,7 @@
+package paises
+
 class Pais(val nombre: String, val continente: Continente,
-           var dueno: Int) {
+           var dueno: Int = 0) {
     var ejercitos = 1
     var misiles = 0
 

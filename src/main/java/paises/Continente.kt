@@ -1,3 +1,5 @@
+package paises
+
 enum class Continente {
     AFRICA,
     AMERICA_DEL_SUR,

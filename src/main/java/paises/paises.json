@@ -1,0 +1,232 @@
+{
+  "AMERICA_DEL_NORTE": {
+    "Alaska": {
+      "conecta": ["Canada", "Chukchi", "Kamtchatka"]
+    },
+    "Canada": {
+      "conecta": ["Alaska", "Isla Victoria", "Oregon", "Terranova"]
+    },
+    "Isla Victoria": {
+      "conecta": ["Canada", "Groenlandia"]
+    },
+    "Groenlandia": {
+      "conecta": ["Isla Victoria", "Labrador", "Nueva York", "Islandia"]
+    },
+    "Labrador": {
+      "conecta": ["Groenlandia", "Terranova"]
+    },
+    "Terranova": {
+      "conecta": ["Labrador", "Canada", "Oregon", "Chicago"]
+    },
+    "Oregon": {
+      "conecta": ["Canada", "Terranova", "Chicago", "Las Vegas"]
+    },
+    "Las Vegas": {
+      "conecta": ["Oregon", "Chicago", "Florida", "California"]
+    },
+    "California": {
+      "conecta": ["Las Vegas", "Florida", "Mexico", "Tonga"]
+    },
+    "Florida": {
+      "conecta": ["Las Vegas", "Chicago", "Cuba", "California"]
+    },
+    "Chicago": {
+      "conecta": ["Terranova", "Nueva York", "Florida", "Las Vegas", "Oregon"]
+    },
+    "Nueva York": {
+      "conecta": ["Groenlandia", "Chicago"]
+    }
+  },
+  "AMERICA_CENTRAL": {
+    "Mexico": {
+      "conecta": ["California", "Cuba", "Honduras"]
+    },
+    "Cuba": {
+      "conecta": ["Florida", "Mexico", "Honduras", "Jamaica"]
+    },
+    "Honduras": {
+      "conecta": ["Mexico", "Cuba", "El Salvador"]
+    },
+    "El Salvador": {
+      "conecta": ["Honduras", "Nicaragua"]
+    },
+    "Nicaragua": {
+      "conecta": ["El Salvador", "Jamaica", "Colombia"]
+    },
+    "Jamaica": {
+      "conecta": ["Cuba", "Nicaragua"]
+    }
+  },
+  "AMERICA_DEL_SUR": {
+    "Argentina": {
+      "conecta": ["Chile", "Bolivia", "Paraguay", "Brasil", "Uruguay"]
+    },
+    "Colombia": {
+      "conecta": ["Nicaragua", "Venezuela", "Brasil", "Chile"]
+    },
+    "Venezuela": {
+      "conecta": ["Colombia", "Brasil"]
+    },
+    "Brasil": {
+      "conecta": ["Venezuela", "Colombia", "Chile", "Bolivia", "Paraguay", "Argentina", "Uruguay", "Sahara"]
+    },
+    "Chile": {
+      "conecta": ["Colombia", "Brasil", "Bolivia", "Argentina", "Australia"]
+    },
+    "Bolivia": {
+      "conecta": ["Brasil", "Paraguay", "Argentina", "Chile"]
+    },
+    "Paraguay": {
+      "conecta": ["Bolivia", "Brasil", "Argentina"]
+    },
+    "Uruguay": {
+      "conecta": ["Brasil", "Nigeria", "Argentina"]
+    }
+  },
+  "EUROPA": {
+    "Islandia": {
+      "conecta": ["Groenlandia", "Noruega", "Irlanda"]
+    },
+    "Noruega": {
+      "conecta": ["Islandia", "Finlandia"]
+    },
+    "Finlandia": {
+      "conecta": ["Noruega", "Bielorrusia"]
+    },
+    "Bielorrusia": {
+      "conecta": ["Finlandia", "Ucrania", "Polonia"]
+    },
+    "Ucrania": {
+      "conecta": ["Bielorrusia", "Polonia", "Albania", "Rusia", "Iran", "Irak"]
+    },
+    "Irlanda": {
+      "conecta": ["Islandia", "Gran Bretaña"]
+    },
+    "Gran Bretaña": {
+      "conecta": ["Irlanda", "Portugal", "Alemania"]
+    },
+    "Alemania": {
+      "conecta": ["Gran Bretaña", "Francia", "Italia", "Croacia", "Serbia", "Polonia"]
+    },
+    "Polonia": {
+      "conecta": ["Alemania", "Serbia", "Croacia", "Egipto", "Albania", "Ucrania", "Bielorrusia"]
+    },
+    "Serbia": {
+      "conecta": ["Alemania", "Croacia", "Polonia"]
+    },
+    "Albania": {
+      "conecta": ["Polonia", "Ucrania", "Iran", "Irak"]
+    },
+    "Croacia": {
+      "conecta": ["Italia", "Alemania", "Serbia", "Polonia"]
+    },
+    "Italia": {
+      "conecta": ["Francia", "Alemania", "Croacia"]
+    },
+    "Francia": {
+      "conecta": ["España", "Alemania", "Italia"]
+    },
+    "España": {
+      "conecta": ["Portugal", "Sahara", "Francia"]
+    },
+    "Portugal": {
+      "conecta": ["Gran Bretaña", "España"]
+    }
+  },
+  "ASIA": {
+    "Rusia": {
+      "conecta": ["Ucrania", "Iran", "Turquia", "China", "Chechenia", "Siberia"]
+    },
+    "Iran": {
+      "conecta": ["Ucrania", "Albania", "Irak", "Turquia", "Rusia"]
+    },
+    "Irak": {
+      "conecta": ["Albania", "Ucrania", "Iran", "Turquia", "Israel", "Egipto"]
+    },
+    "Israel": {
+      "conecta": ["Irak", "Turquia", "Arabia", "Egipto"]
+    },
+    "Turquia": {
+      "conecta": ["Iran", "Rusia", "China", "India", "Israel", "Irak"]
+    },
+    "Arabia": {
+      "conecta": ["Israel"]
+    },
+    "Siberia": {
+      "conecta": ["Rusia", "Chechenia", "China"]
+    },
+    "Chechenia": {
+      "conecta": ["Siberia", "China", "Rusia"]
+    },
+    "China": {
+      "conecta": ["Siberia", "Chechenia", "Rusia", "Turquia", "India", "Malasia", "Corea", "Kamtchatka", "Chukchi"]
+    },
+    "Chukchi": {
+      "conecta": ["Alaska", "Kamtchatka", "China"]
+    },
+    "Kamtchatka": {
+      "conecta": ["Chukchi", "Alaska", "Japon", "Corea", "China"]
+    },
+    "Corea": {
+      "conecta": ["Kamtchatka", "Japon", "Vietnam", "Malasia", "China"]
+    },
+    "Malasia": {
+      "conecta": ["China", "Corea", "Vietnam", "India"]
+    },
+    "India": {
+      "conecta": ["Turquia", "China", "Malasia", "Vietnam", "Sumatra"]
+    },
+    "Vietnam": {
+      "conecta": ["India", "Malasia", "Corea", "Filipinas"]
+    },
+    "Japon": {
+      "conecta": ["Kamtchatka", "Corea"]
+    }
+  },
+  "AFRICA": {
+    "Sahara": {
+      "conecta": ["España", "Brasil", "Nigeria", "Etiopia", "Egipto"]
+    },
+    "Egipto": {
+      "conecta": ["Polonia", "Irak", "Israel", "Madagascar", "Etiopia", "Sahara"]
+    },
+    "Etiopia": {
+      "conecta": ["Egipto", "Angola", "Nigeria", "Sahara"]
+    },
+    "Nigeria": {
+      "conecta": ["Sahara", "Etiopia", "Angola", "Mauritania", "Sudafrica", "Uruguay"]
+    },
+    "Angola": {
+      "conecta": ["Etiopia", "Nigeria", "Mauritania"]
+    },
+    "Mauritania": {
+      "conecta": ["Angola", "Nigeria", "Sudafrica", "Madagascar"]
+    },
+    "Sudafrica": {
+      "conecta": ["Nigeria", "Mauritania", "Madagascar"]
+    },
+    "Madagascar": {
+      "conecta": ["Sudafrica", "Mauritania", "Egipto"]
+    }
+  },
+  "OCEANIA": {
+    "Sumatra": {
+      "conecta": ["India", "Australia"]
+    },
+    "Filipinas": {
+      "conecta": ["Vietnam", "Tonga", "Australia"]
+    },
+    "Tonga": {
+      "conecta": ["Filipinas", "California", "Australia"]
+    },
+    "Australia": {
+      "conecta": ["Sumatra", "Filipinas", "Tonga", "Chile", "Tasmania"]
+    },
+    "Tasmania": {
+      "conecta": ["Australia", "Nueva Zelandia"]
+    },
+    "Nueva Zelandia": {
+      "conecta": ["Tasmania"]
+    }
+  }
+}

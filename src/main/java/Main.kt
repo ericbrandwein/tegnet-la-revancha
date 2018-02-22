@@ -5,6 +5,8 @@ import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.layout.GridPane
 import javafx.stage.Stage
+import paises.Continente
+import paises.Pais
 
 
 fun main(args: Array<String>) {

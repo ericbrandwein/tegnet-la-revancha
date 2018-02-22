@@ -1,7 +1,8 @@
+import paises.Pais
 import kotlin.math.min
 
 /**
- * @return true si conquisto el Pais
+ * @return true si conquisto el paises.Pais
  */
 fun batallar(desde: Pais, hacia: Pais): Boolean {
     val cantDadosAtacante = cantDadosAtacante(desde)
