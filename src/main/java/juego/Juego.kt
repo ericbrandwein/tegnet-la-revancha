@@ -1,4 +1,7 @@
+package juego
+
 import objetivos.Objetivo
+import objetivos.listaDeObjetivos
 import paises.PaisEnJuego
 import paises.listaDePaises
 
@@ -10,6 +13,11 @@ class Juego(val jugadores: List<Jugador>) {
     var tarjetaDeSituacion: TarjetaDeSituacion =
             mazoDeSituacion.sacarTarjeta()
 
+    init {
+        repartirPaises()
+        repartirObjetivos()
+    }
+    
     fun repartirPaises() {
         paises = paises.shuffled()
         for (i in 0..paises.size / jugadores.size) {
@@ -22,7 +30,7 @@ class Juego(val jugadores: List<Jugador>) {
             val primerJugador = getRandomInt(jugadores.size)
             // como el primer jugador no puede ganar los dos paises,
             // hacemos random entre los otros 4 jugadores
-            var segundoJugador = getRandomInt(jugadores.size-1)
+            var segundoJugador = getRandomInt(jugadores.size - 1)
             if(segundoJugador >= primerJugador) segundoJugador++
 
             paises.last().dueno = segundoJugador

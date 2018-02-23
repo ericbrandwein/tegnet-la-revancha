@@ -1,7 +1,7 @@
 package objetivos
 
-import Color
-import Jugador
+import juego.Color
+import juego.Jugador
 
 class ObjetivoDeDestruirColor(val color: Color) : ObjetivoDeDestruir() {
     private val colorEnDescripcion = color.toString().toLowerCase().capitalize()

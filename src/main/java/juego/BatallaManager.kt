@@ -1,4 +1,5 @@
-import paises.Pais
+package juego
+
 import paises.PaisEnJuego
 import kotlin.math.min
 

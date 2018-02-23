@@ -1,3 +1,5 @@
+package juego
+
 enum class Color {
     AMARILLO,
     AZUL,

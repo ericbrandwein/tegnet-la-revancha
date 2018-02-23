@@ -5,6 +5,10 @@ import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.scene.layout.GridPane
 import javafx.stage.Stage
+import juego.Color
+import juego.Juego
+import juego.Jugador
+import juego.batallar
 import paises.Continente
 import paises.Pais
 

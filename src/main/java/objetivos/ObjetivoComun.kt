@@ -1,6 +1,6 @@
 package objetivos
 
-import Jugador
+import juego.Jugador
 import paises.PaisEnJuego
 
 class ObjetivoComun : ObjetivoDeOcupar {

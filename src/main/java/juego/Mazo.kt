@@ -1,3 +1,5 @@
+package juego
+
 class Mazo<out T>(private val tarjetas: List<T>) {
     private var actual: List<T> = tarjetas.shuffled()
 

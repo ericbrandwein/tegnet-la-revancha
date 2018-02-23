@@ -1,3 +1,5 @@
+package juego
+
 private val CANT_TARJETAS =
         mapOf(
                 TarjetaDeSituacion.COMBATE_CLASICO to 20,

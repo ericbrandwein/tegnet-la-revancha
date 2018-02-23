@@ -1,3 +1,5 @@
+package juego
+
 enum class TarjetaDeSituacion(val descripcion: String) {
     COMBATE_CLASICO("blahllawkdlf"),
     NIEVE("blahllawkdlf"),

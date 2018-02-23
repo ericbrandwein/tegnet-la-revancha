@@ -1,6 +1,6 @@
 package objetivos
 
-import Jugador
+import juego.Jugador
 
 class ObjetivoDeDestruirIzquierda : ObjetivoDeDestruir() {
     override val descripcion: String = "Destruir al jugador de la izquierda."
