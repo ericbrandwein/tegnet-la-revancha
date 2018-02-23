@@ -17,11 +17,11 @@ class Juego(val jugadores: List<Jugador>) {
         repartirPaises()
         repartirObjetivos()
     }
-    
+
     fun repartirPaises() {
         paises = paises.shuffled()
-        for (i in 0..paises.size / jugadores.size) {
-            for (j in 0..jugadores.size) {
+        for (i in 0 until paises.size / jugadores.size) {
+            for (j in 0 until jugadores.size) {
                 paises[i + j].dueno = j
             }
         }
