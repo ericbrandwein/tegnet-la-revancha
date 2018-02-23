@@ -19,7 +19,7 @@ class ObjetivoDeOcupar7 : ObjetivoDeOcupar {
                 paises, Continente.EUROPA, jugadorActual, conquistado)
         val cantAsiaConquistado = cantPaisesDeContinenteConDueno(
                 paises, Continente.ASIA, jugadorActual, conquistado)
-        return americaCentralConquistado && cantAmericaDelSurConquistado >= 6
-                && cantEuropaConquistado >= 6 && cantAsiaConquistado >= 6
+        return americaCentralConquistado && cantAmericaDelSurConquistado >= 6 &&
+                cantEuropaConquistado >= 6 && cantAsiaConquistado >= 6
     }
 }
