@@ -1,3 +1,4 @@
+import objetivos.Objetivo
 import paises.PaisEnJuego
 import paises.listaDePaises
 
@@ -26,6 +27,14 @@ class Juego(val jugadores: List<Jugador>) {
 
             paises.last().dueno = segundoJugador
             paises[paises.size - 2].dueno = primerJugador
+        }
+    }
+
+    fun repartirObjetivos() {
+        var objetivos : List<Objetivo> = listaDeObjetivos().shuffled()
+        jugadores.forEach {
+            it.objetivo = objetivos.last()
+            objetivos = objetivos.dropLast(1)
         }
     }
 
