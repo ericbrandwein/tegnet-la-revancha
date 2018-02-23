@@ -1,10 +1,11 @@
 import paises.Pais
+import paises.PaisEnJuego
 import kotlin.math.min
 
 /**
  * @return true si conquisto el paises.Pais
  */
-fun batallar(desde: Pais, hacia: Pais): Boolean {
+fun batallar(desde: PaisEnJuego, hacia: PaisEnJuego): Boolean {
     val cantDadosAtacante = cantDadosAtacante(desde)
     val cantDadosDefensor = cantDadosDefensor(hacia)
     var tiradaAtacante = tirarDados(cantDadosAtacante)
@@ -30,10 +31,10 @@ private fun cantGanados(tiradaAtacante: List<Int>, tiradaDefensor: List<Int>) =
                 .mapIndexed { indice, dado -> dado > tiradaDefensor[indice] }
                 .count { it }
 
-private fun cantDadosAtacante(atacante: Pais) =
+private fun cantDadosAtacante(atacante: PaisEnJuego) =
         min(atacante.ejercitos - 1, 3)
 
-private fun cantDadosDefensor(defensor: Pais) =
+private fun cantDadosDefensor(defensor: PaisEnJuego) =
         min(defensor.ejercitos, 3)
 
 /**
@@ -47,4 +48,4 @@ private fun tirarDados(cant: Int): List<Int> {
     return dados.sortedDescending()
 }
 
-private fun tirarDado() = (Math.random() * 6 + 1).toInt()
+private fun tirarDado() = getRandomInt(6) + 1
