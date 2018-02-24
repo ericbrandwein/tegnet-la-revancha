@@ -9,5 +9,5 @@ class ObjetivoComun : ObjetivoDeOcupar {
     override fun cumplido(paises: List<PaisEnJuego>, conquistado: PaisEnJuego,
                           jugadores: List<Jugador>,
                           jugadorActual: Int): Boolean =
-            cantPaisesConDueno(paises, jugadorActual) + 1 >= 45
+            paises.cantPaisesConDueno(paises, jugadorActual) + 1 >= 45
 }

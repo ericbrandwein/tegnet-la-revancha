@@ -1,6 +1,5 @@
 package juego
 
-import juego.fases.EjercitosManager
 import juego.fases.FaseDeTurno
 import objetivos.Objetivo
 import objetivos.listaDeObjetivos
@@ -8,7 +7,7 @@ import paises.PaisEnJuego
 import paises.listaDePaises
 
 class Juego(val jugadores: List<Jugador>) {
-    var mano: Int = getRandomInt(jugadores.size)
+
     var jugadorActivo: Int = mano
     var fase: FaseDeTurno = FaseDeTurno.INCORPORACION
     var paises: List<PaisEnJuego> = PaisEnJuego.desdePaises(listaDePaises())
@@ -16,11 +15,15 @@ class Juego(val jugadores: List<Jugador>) {
             armarMazoDeSituacion()
     var tarjetaDeSituacion: TarjetaDeSituacion =
             mazoDeSituacion.sacarTarjeta()
-    private val ejercitador = EjercitosManager(paises)
 
     init {
         repartirPaises()
         repartirObjetivos()
+    }
+
+    fun terminarTurno() {
+        jugadorALaIzquierda()
+        jugadorActivo = proximoJu
     }
 
     fun atacar(desde: String, hacia: String) {
@@ -75,7 +78,4 @@ class Juego(val jugadores: List<Jugador>) {
         return tarjetaDeSituacion
     }
 
-    interface ElegidorDeEjercitosQuePasar {
-        fun cuantosPasar()
-    }
 }

@@ -17,11 +17,11 @@ class ObjetivoDeOcupar11 : ObjetivoDeOcupar {
 
     override fun cumplido(paises: List<PaisEnJuego>, conquistado: PaisEnJuego,
             jugadores: List<Jugador>, jugadorActual: Int): Boolean {
-        val africaConquistado = continenteConquistado(
+        val africaConquistado = paises.continenteConquistado(
                 paises, Continente.AFRICA, jugadorActual, conquistado)
-        val cantEuropaConquistados = cantPaisesDeContinenteConDueno(
+        val cantEuropaConquistados = paises.cantPaisesDeContinenteConDueno(
                 paises, Continente.EUROPA, jugadorActual, conquistado)
-        val cantAsiaConquistados = cantPaisesDeContinenteConDueno(
+        val cantAsiaConquistados = paises.cantPaisesDeContinenteConDueno(
                 paises, Continente.ASIA, jugadorActual, conquistado)
         // paises que pueden contar entre las islas que se necesitan
         val sobranDeEuropa = cantEuropaConquistados - 4

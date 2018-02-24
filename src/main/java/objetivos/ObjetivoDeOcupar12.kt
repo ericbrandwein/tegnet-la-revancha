@@ -8,6 +8,6 @@ class ObjetivoDeOcupar12 : ObjetivoDeOcupar {
 
     override fun cumplido(paises: List<PaisEnJuego>, conquistado: PaisEnJuego,
             jugadores: List<Jugador>, jugadorActual: Int): Boolean =
-            cantPaisesConDueno(paises, jugadorActual) + 1 >= 35
+            paises.cantPaisesConDueno(paises, jugadorActual) + 1 >= 35
 
 }

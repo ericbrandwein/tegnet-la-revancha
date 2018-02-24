@@ -1,7 +1,7 @@
-package objetivos
+package paises
 
-import paises.Continente
-import paises.PaisEnJuego
+fun paisConNombre(paises: List<PaisEnJuego>, nombre: String) =
+        paises.first { it.pais.nombre == nombre }
 
 fun cantPaisesConDueno(paises: List<PaisEnJuego>, jugador: Int) =
         paises.count { it.dueno == jugador }
@@ -17,9 +17,9 @@ private fun paisesDeContinente(paises: List<PaisEnJuego>,
 fun cantPaisesDeContinenteConDueno(paises: List<PaisEnJuego>,
         continente: Continente, jugador: Int,
         paisConquistado: PaisEnJuego): Int {
-    val paisesDeContinente = paisesDeContinente(paises, continente)
+    val paisesDeContinente = paises.paisesDeContinente(paises, continente)
     var cantPaisesDeJugadorEnContinente =
-            cantPaisesConDueno(paisesDeContinente, jugador)
+            paises.cantPaisesConDueno(paisesDeContinente, jugador)
     if (paisConquistado.pais.continente == continente) {
         cantPaisesDeJugadorEnContinente++
     }
@@ -32,9 +32,9 @@ fun cantPaisesDeContinenteConDueno(paises: List<PaisEnJuego>,
  */
 fun continenteConquistado(paises: List<PaisEnJuego>, continente: Continente,
         jugador: Int, paisConquistado: PaisEnJuego): Boolean {
-    val cantPaisesDeJugadorEnContinente = cantPaisesDeContinenteConDueno(
+    val cantPaisesDeJugadorEnContinente = paises.cantPaisesDeContinenteConDueno(
             paises, continente, jugador, paisConquistado
     )
-    val cantPaisesEnContinente = paisesDeContinente(paises, continente).size
+    val cantPaisesEnContinente = paises.paisesDeContinente(paises, continente).size
     return cantPaisesDeJugadorEnContinente == cantPaisesEnContinente
 }

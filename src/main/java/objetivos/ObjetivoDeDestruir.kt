@@ -22,7 +22,7 @@ abstract class ObjetivoDeDestruir : Objetivo {
     private fun esSuUltimoPais(paises: List<PaisEnJuego>, pais: PaisEnJuego,
                                jugador: Int): Boolean {
         return pais.dueno == jugador &&
-                cantPaisesConDueno(paises, jugador) == 1
+                paises.cantPaisesConDueno(paises, jugador) == 1
     }
 
     /**

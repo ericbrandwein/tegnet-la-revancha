@@ -10,13 +10,15 @@ class ObjetivoDeOcupar9 : ObjetivoDeOcupar {
 
     override fun cumplido(paises: List<PaisEnJuego>, conquistado: PaisEnJuego,
             jugadores: List<Jugador>, jugadorActual: Int): Boolean {
-        val oceaniaConquistado = continenteConquistado(
+        val oceaniaConquistado = paises.continenteConquistado(
                 paises, Continente.OCEANIA, jugadorActual, conquistado)
-        val africaConquistado = continenteConquistado(
+        val africaConquistado = paises.continenteConquistado(
                 paises, Continente.AFRICA, jugadorActual, conquistado)
-        val cantAmericaCentralConquistado = cantPaisesDeContinenteConDueno(
-                paises, Continente.AMERICA_CENTRAL, jugadorActual, conquistado)
-        val cantAsiaConquistado = cantPaisesDeContinenteConDueno(
+        val cantAmericaCentralConquistado =
+                paises.cantPaisesDeContinenteConDueno(
+                        paises, Continente.AMERICA_CENTRAL, jugadorActual,
+                        conquistado)
+        val cantAsiaConquistado = paises.cantPaisesDeContinenteConDueno(
                 paises, Continente.ASIA, jugadorActual, conquistado)
         return oceaniaConquistado && africaConquistado &&
                 cantAmericaCentralConquistado >= 4 && cantAsiaConquistado >= 4
