@@ -1,12 +1,14 @@
-package juego
+package juego.fases
 
+import juego.getRandomInt
 import paises.PaisEnJuego
 import kotlin.math.min
 
 /**
- * @return true si conquisto el paises.Pais
+ * Simula una batalla entre los paises, y les saca la
+ * cantidad de fases que correspondan.
  */
-fun batallar(desde: PaisEnJuego, hacia: PaisEnJuego): Boolean {
+fun batallar(desde: PaisEnJuego, hacia: PaisEnJuego) {
     val cantDadosAtacante = cantDadosAtacante(desde)
     val cantDadosDefensor = cantDadosDefensor(hacia)
     var tiradaAtacante = tirarDados(cantDadosAtacante)
@@ -20,11 +22,10 @@ fun batallar(desde: PaisEnJuego, hacia: PaisEnJuego): Boolean {
     val ganados = cantGanados(tiradaAtacante, tiradaDefensor)
     desde.ejercitos -= ejercitosEnRiesgo - ganados
     hacia.ejercitos -= ganados
-    return hacia.ejercitos == 0
 }
 
 /**
- * Devuelve la cantidad de ejercitos ganados por parte del atacante.
+ * Devuelve la cantidad de fases ganados por parte del atacante.
  * Toma las listas de dados tirados por cada uno, que deben tener el mismo size
  */
 private fun cantGanados(tiradaAtacante: List<Int>, tiradaDefensor: List<Int>) =
