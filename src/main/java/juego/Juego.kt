@@ -1,49 +1,57 @@
 package juego
 
+import juego.fases.Atacador
 import juego.fases.FaseDeTurno
+import juego.fases.Incorporador
+import juego.fases.Reagrupador
+import juego.turnos.OrganizadorDeTurnos
 import objetivos.Objetivo
 import objetivos.listaDeObjetivos
 import paises.PaisEnJuego
 import paises.listaDePaises
 
-class Juego(val jugadores: List<Jugador>) {
-
-    var jugadorActivo: Int = mano
+class Juego(val jugadores: List<Jugador>, var vista: JuegoView) {
     var fase: FaseDeTurno = FaseDeTurno.INCORPORACION
     var paises: List<PaisEnJuego> = PaisEnJuego.desdePaises(listaDePaises())
     private val mazoDeSituacion: Mazo<TarjetaDeSituacion> =
             armarMazoDeSituacion()
-    var tarjetaDeSituacion: TarjetaDeSituacion =
-            mazoDeSituacion.sacarTarjeta()
+    var tarjetaDeSituacion: TarjetaDeSituacion? = null
+    private val organizadorDeTurnos =
+            OrganizadorDeTurnos(jugadores, JuegoNuevaVueltaListener())
 
     init {
         repartirPaises()
         repartirObjetivos()
+        vista.primeraVueltaDeIncorporacion()
+        // falta incorporar los primeros paises
+    }
+
+    fun terminarVueltaDeIncorporacion() {
+        organizadorDeTurnos.nuevaVuelta()
+        vista.faseDeIncorporacion(
+                Incorporador(paises, organizadorDeTurnos.jugadorActual))
+    }
+
+    fun finFaseIncorporacion() {
+        fase = FaseDeTurno.ATAQUE
+        vista.faseDeAtaque(Atacador(paises, organizadorDeTurnos.jugadorActual))
+    }
+
+    fun finFaseAtaque() {
+        fase = FaseDeTurno.REAGRUPE
+        vista.faseDeReagrupe(
+                Reagrupador(paises, organizadorDeTurnos.jugadorActual))
+    }
+
+    fun finFaseReagrupe() {
+        terminarTurno()
     }
 
     fun terminarTurno() {
-        jugadorALaIzquierda()
-        jugadorActivo = proximoJu
+        organizadorDeTurnos.pasarTurno()
+        vista.faseDeIncorporacion(
+                Incorporador(paises, organizadorDeTurnos.jugadorActual))
     }
-
-    fun atacar(desde: String, hacia: String) {
-        val conquistado = ejercitador.atacar(desde, hacia)
-        if (conquistado) {
-
-        }
-    }
-
-    fun terminarAtaque() {
-
-    }
-
-    fun cuantosPuedeReagrupar(desde: String, hacia: String) {
-        ejercitador.cuantosPuedeReagrupar(desde, hacia)
-    }
-
-    fun reagrupar(desde: String, hacia: String, ejercitos: Int) {}
-
-    fun terminarTurno() {}
 
     private fun repartirPaises() {
         paises = paises.shuffled()
@@ -75,7 +83,13 @@ class Juego(val jugadores: List<Jugador>) {
 
     private fun sacarTarjetaDeSituacion(): TarjetaDeSituacion {
         tarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
-        return tarjetaDeSituacion
+        return tarjetaDeSituacion as TarjetaDeSituacion
     }
 
+    private inner class JuegoNuevaVueltaListener :
+            OrganizadorDeTurnos.NuevaVueltaListener {
+        override fun nuevaVuelta() {
+            sacarTarjetaDeSituacion()
+        }
+    }
 }

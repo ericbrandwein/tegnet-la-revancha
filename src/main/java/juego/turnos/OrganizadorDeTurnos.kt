@@ -3,6 +3,10 @@ package juego.turnos
 import juego.Jugador
 import juego.getRandomInt
 
+/**
+ * Determina quien es el jugador actual, quien es la mano,
+ * y cuando se comienza una nueva vuelta.
+ */
 class OrganizadorDeTurnos(val jugadores: List<Jugador>,
         var listener: NuevaVueltaListener) {
     var mano: Int = getRandomInt(jugadores.size)
