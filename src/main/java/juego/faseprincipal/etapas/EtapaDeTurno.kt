@@ -1,4 +1,4 @@
-package juego.etapas
+package juego.faseprincipal.etapas
 
 enum class EtapaDeTurno {
     INCORPORACION,

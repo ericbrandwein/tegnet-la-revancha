@@ -1,4 +1,6 @@
-package juego
+package juego.faseprincipal.situacion
+
+import juego.Mazo
 
 private val CANT_TARJETAS =
         mapOf(

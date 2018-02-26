@@ -1,6 +1,8 @@
-package juego
+package juego.faseincorporacion
 
-import juego.etapas.Incorporador
+import juego.Jugador
+import juego.VistaJuego
+import juego.faseprincipal.etapas.Incorporador
 import juego.turnos.OrganizadorDeTurnos
 import paises.PaisEnJuego
 
@@ -8,7 +10,7 @@ private const val EJERCITOS_PRIMERA_VUELTA = 8
 private const val EJERCITOS_SEGUNDA_VUELTA = 4
 
 class EncargadoPrimeraFaseDeIncorporacion(jugadores: List<Jugador>,
-        val paises: List<PaisEnJuego>, mano: Int, val vista: JuegoView,
+        private val paises: List<PaisEnJuego>, mano: Int, private val vista: VistaJuego,
         var listener: TerminarListener) {
     val organizadorDeTurnos: OrganizadorDeTurnos = OrganizadorDeTurnos(
             jugadores, mano)

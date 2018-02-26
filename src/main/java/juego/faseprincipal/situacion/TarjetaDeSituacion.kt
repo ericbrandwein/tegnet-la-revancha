@@ -1,4 +1,4 @@
-package juego
+package juego.faseprincipal.situacion
 
 enum class TarjetaDeSituacion(val descripcion: String) {
     COMBATE_CLASICO("Las acciones bélicas se desarrollan sin modificaciones"),

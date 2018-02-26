@@ -1,72 +1,36 @@
 package juego
 
-import juego.etapas.Atacador
-import juego.etapas.EtapaDeTurno
-import juego.etapas.Incorporador
-import juego.etapas.Reagrupador
-import juego.turnos.OrganizadorDeTurnosPrincipal
+import juego.faseincorporacion.EncargadoPrimeraFaseDeIncorporacion
+import juego.faseprincipal.EncargadoFasePrincipal
 import objetivos.Objetivo
 import objetivos.listaDeObjetivos
 import paises.PaisEnJuego
-import paises.cantPaisesConDueno
 import paises.listaDePaises
 
-class Juego(val jugadores: List<Jugador>, var vista: JuegoView) {
-    var etapa: EtapaDeTurno = EtapaDeTurno.INCORPORACION
+class Juego(val jugadores: List<Jugador>, var vista: VistaJuego) {
     var paises: List<PaisEnJuego> = PaisEnJuego.desdePaises(listaDePaises())
-    private val mazoDeSituacion: Mazo<TarjetaDeSituacion> =
-            armarMazoDeSituacion()
-    var tarjetaDeSituacion: TarjetaDeSituacion? = null
-    private val organizadorDeTurnos = OrganizadorDeTurnosPrincipal(jugadores)
+    val mano: Int = getRandomInt(jugadores.size)
 
     init {
         repartirPaises()
         repartirObjetivos()
         vista.primeraFaseDeIncorporacion(
                 EncargadoPrimeraFaseDeIncorporacion(
-                        jugadores, paises, organizadorDeTurnos.mano, vista,
+                        jugadores, paises, mano, vista,
                         JuegoTerminaPrimeraFaseDeIncorporacionListener()
                 )
         )
     }
 
     fun terminarPrimeraFaseIncorporacion() {
-        comienzoEtapaIncorporacion()
+        EncargadoFasePrincipal(
+                paises, jugadores, mano, vista.vistaFasePrincipal,
+                object : EncargadoFasePrincipal.GanadoListener {
+                    override fun gano(jugador: Int) {
+                        println("gano $jugador!")
+                    }
+                })
     }
-
-    fun comienzoEtapaIncorporacion() {
-        vista.etapaDeIncorporacion(
-                Incorporador(
-                        paises, organizadorDeTurnos.jugadorActual,
-                        ejercitosIncorporablesEnTurno()
-                )
-        )
-    }
-
-    fun finEtapaIncorporacion() {
-        etapa = EtapaDeTurno.ATAQUE
-        vista.etapaDeAtaque(Atacador(paises, organizadorDeTurnos.jugadorActual))
-    }
-
-    fun finEtapaAtaque() {
-        etapa = EtapaDeTurno.REAGRUPE
-        vista.etapaDeReagrupe(
-                Reagrupador(paises, organizadorDeTurnos.jugadorActual))
-    }
-
-    fun finEtapaReagrupe() {
-        terminarTurno()
-    }
-
-    fun terminarTurno() {
-        if (organizadorDeTurnos.pasarTurno()) {
-            sacarTarjetaDeSituacion()
-        }
-        comienzoEtapaIncorporacion()
-    }
-
-    fun ejercitosIncorporablesEnTurno() =
-            cantPaisesConDueno(paises, organizadorDeTurnos.jugadorActual) / 2
 
     private fun repartirPaises() {
         paises = paises.shuffled()
@@ -94,11 +58,6 @@ class Juego(val jugadores: List<Jugador>, var vista: JuegoView) {
             it.objetivo = objetivos.last()
             objetivos = objetivos.dropLast(1)
         }
-    }
-
-    private fun sacarTarjetaDeSituacion(): TarjetaDeSituacion {
-        tarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
-        return tarjetaDeSituacion as TarjetaDeSituacion
     }
 
     private inner class JuegoTerminaPrimeraFaseDeIncorporacionListener :

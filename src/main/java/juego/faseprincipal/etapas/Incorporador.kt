@@ -1,4 +1,4 @@
-package juego.etapas
+package juego.faseprincipal.etapas
 
 import paises.PaisEnJuego
 import paises.paisConNombre
