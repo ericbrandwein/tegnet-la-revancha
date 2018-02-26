@@ -1,11 +1,11 @@
-package juego.fases
+package juego.etapas
 
 import paises.PaisEnJuego
 import paises.paisConNombre
 import kotlin.math.min
 
 /**
- * Encargado de realizar las acciones necesarias en la [FaseDeTurno.ATAQUE].
+ * Encargado de realizar las acciones necesarias en la [EtapaDeTurno.ATAQUE].
  */
 class Atacador(val paises: List<PaisEnJuego>, val jugador: Int) {
     var paisesConquistados = 0

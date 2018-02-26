@@ -1,12 +1,12 @@
-package juego.fases
+package juego.etapas
 
 import paises.PaisEnJuego
-import paises.cantPaisesConDueno
 import paises.paisConNombre
 
-class Incorporador(private val paises: List<PaisEnJuego>, val jugador: Int) {
-    var ejercitosRestantesAIncorporar = cantPaisesConDueno(paises, jugador) / 2
-        private set
+class Incorporador(private val paises: List<PaisEnJuego>,
+        val jugador: Int, ejercitosDisponibles: Int) {
+    var ejercitosRestantesAIncorporar = ejercitosDisponibles
+        protected set
 
     /**
      * Incorpora [ejercitos] en el pais con [nombrePais].

@@ -1,10 +1,10 @@
-package juego.fases
+package juego.etapas
 
 import paises.PaisEnJuego
 import paises.paisConNombre
 
 /**
- * Encargado de realizar las acciones necesarias en la [FaseDeTurno.REAGRUPE].
+ * Encargado de realizar las acciones necesarias en la [EtapaDeTurno.REAGRUPE].
  */
 class Reagrupador(val paises: List<PaisEnJuego>, val jugador: Int) {
     val ejercitosTrabados = mutableMapOf<PaisEnJuego, Int>()

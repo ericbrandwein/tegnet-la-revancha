@@ -1,37 +1,27 @@
 package juego.turnos
 
 import juego.Jugador
-import juego.getRandomInt
 
-/**
- * Determina quien es el jugador actual, quien es la mano,
- * y cuando se comienza una nueva vuelta.
- */
-class OrganizadorDeTurnos(val jugadores: List<Jugador>,
-        var listener: NuevaVueltaListener) {
-    var mano: Int = getRandomInt(jugadores.size)
-        private set
+open class OrganizadorDeTurnos(val jugadores: List<Jugador>, var mano: Int) {
     var jugadorActual = mano
-        private set
+        protected set
 
     fun jugadorALaIzquierda() =
             (jugadorActual + 1) % jugadores.size
 
-    fun pasarTurno() {
+    /**
+     * Pasa el turno al siguiente jugador
+     *
+     * @return `true` si pasar el turno hizo que se comienze una nueva vuelta.
+     */
+    fun pasarTurno() : Boolean {
         jugadorActual = jugadorALaIzquierda()
         if (jugadorActual == mano) {
             nuevaVuelta()
+            return true
         }
+        return false
     }
 
-    fun nuevaVuelta() {
-        jugadorActual = jugadorALaIzquierda()
-        mano = jugadorActual
-        listener.nuevaVuelta()
-    }
-
-    interface NuevaVueltaListener {
-        fun nuevaVuelta()
-    }
-
+    protected open fun nuevaVuelta() {}
 }
