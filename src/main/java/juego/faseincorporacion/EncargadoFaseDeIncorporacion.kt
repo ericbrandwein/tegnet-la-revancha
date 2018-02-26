@@ -1,7 +1,6 @@
 package juego.faseincorporacion
 
 import juego.Jugador
-import juego.VistaJuego
 import juego.faseprincipal.etapas.Incorporador
 import juego.turnos.OrganizadorDeTurnos
 import paises.PaisEnJuego
@@ -9,15 +8,18 @@ import paises.PaisEnJuego
 private const val EJERCITOS_PRIMERA_VUELTA = 8
 private const val EJERCITOS_SEGUNDA_VUELTA = 4
 
-class EncargadoPrimeraFaseDeIncorporacion(jugadores: List<Jugador>,
-        private val paises: List<PaisEnJuego>, mano: Int, private val vista: VistaJuego,
+class EncargadoFaseDeIncorporacion(jugadores: List<Jugador>,
+        private val paises: List<PaisEnJuego>, mano: Int,
+        private val vista: VistaFaseIncorporacion,
         var listener: TerminarListener) {
     val organizadorDeTurnos: OrganizadorDeTurnos = OrganizadorDeTurnos(
             jugadores, mano)
     var vuelta = 1
         private set
 
-    fun comenzar(): Incorporador = incorporadorDePrimeraVuelta()
+    init {
+        vista.nuevoTurnoDeVueltaDeIncorporacion(incorporadorDePrimeraVuelta())
+    }
 
     fun terminarTurno() {
         if (organizadorDeTurnos.pasarTurno()) {
@@ -41,7 +43,7 @@ class EncargadoPrimeraFaseDeIncorporacion(jugadores: List<Jugador>,
             incorporador(EJERCITOS_SEGUNDA_VUELTA)
 
     private fun incorporador(ejercitos: Int) =
-            Incorporador(paises, organizadorDeTurnos.mano, ejercitos)
+            Incorporador(paises, organizadorDeTurnos.jugadorActual, ejercitos)
 
     interface TerminarListener {
         fun terminarFase()

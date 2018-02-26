@@ -1,6 +1,6 @@
 package juego
 
-import juego.faseincorporacion.EncargadoPrimeraFaseDeIncorporacion
+import juego.faseincorporacion.EncargadoFaseDeIncorporacion
 import juego.faseprincipal.EncargadoFasePrincipal
 import objetivos.Objetivo
 import objetivos.listaDeObjetivos
@@ -14,15 +14,13 @@ class Juego(val jugadores: List<Jugador>, var vista: VistaJuego) {
     init {
         repartirPaises()
         repartirObjetivos()
-        vista.primeraFaseDeIncorporacion(
-                EncargadoPrimeraFaseDeIncorporacion(
-                        jugadores, paises, mano, vista,
-                        JuegoTerminaPrimeraFaseDeIncorporacionListener()
-                )
+        EncargadoFaseDeIncorporacion(
+                jugadores, paises, mano, vista.vistaFaseIncorporacion,
+                JuegoTerminaPrimeraFaseDeIncorporacionListener()
         )
     }
 
-    fun terminarPrimeraFaseIncorporacion() {
+    fun terminarFaseIncorporacion() {
         EncargadoFasePrincipal(
                 paises, jugadores, mano, vista.vistaFasePrincipal,
                 object : EncargadoFasePrincipal.GanadoListener {
@@ -61,9 +59,9 @@ class Juego(val jugadores: List<Jugador>, var vista: VistaJuego) {
     }
 
     private inner class JuegoTerminaPrimeraFaseDeIncorporacionListener :
-            EncargadoPrimeraFaseDeIncorporacion.TerminarListener {
+            EncargadoFaseDeIncorporacion.TerminarListener {
         override fun terminarFase() {
-            terminarPrimeraFaseIncorporacion()
+            terminarFaseIncorporacion()
         }
     }
 }
