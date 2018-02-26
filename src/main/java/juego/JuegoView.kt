@@ -5,7 +5,8 @@ import juego.etapas.Incorporador
 import juego.etapas.Reagrupador
 
 interface JuegoView {
-    fun primeraFaseDeIncorporacion()
+    fun primeraFaseDeIncorporacion(
+            encargado: EncargadoPrimeraFaseDeIncorporacion)
     fun etapaDeIncorporacion(incorporador: Incorporador)
     fun etapaDeAtaque(atacador: Atacador)
     fun etapaDeReagrupe(reagrupador: Reagrupador)

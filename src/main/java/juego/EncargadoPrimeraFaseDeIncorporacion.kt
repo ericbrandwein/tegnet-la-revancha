@@ -8,8 +8,8 @@ private const val EJERCITOS_PRIMERA_VUELTA = 8
 private const val EJERCITOS_SEGUNDA_VUELTA = 4
 
 class EncargadoPrimeraFaseDeIncorporacion(jugadores: List<Jugador>,
-        val paises: List<PaisEnJuego>, mano: Int,
-        var listener: TerminarListener, val vista: JuegoView) {
+        val paises: List<PaisEnJuego>, mano: Int, val vista: JuegoView,
+        var listener: TerminarListener) {
     val organizadorDeTurnos: OrganizadorDeTurnos = OrganizadorDeTurnos(
             jugadores, mano)
     var vuelta = 1

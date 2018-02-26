@@ -4,7 +4,6 @@ import juego.etapas.Atacador
 import juego.etapas.EtapaDeTurno
 import juego.etapas.Incorporador
 import juego.etapas.Reagrupador
-import juego.turnos.OrganizadorDeTurnos
 import juego.turnos.OrganizadorDeTurnosPrincipal
 import objetivos.Objetivo
 import objetivos.listaDeObjetivos
@@ -18,18 +17,20 @@ class Juego(val jugadores: List<Jugador>, var vista: JuegoView) {
     private val mazoDeSituacion: Mazo<TarjetaDeSituacion> =
             armarMazoDeSituacion()
     var tarjetaDeSituacion: TarjetaDeSituacion? = null
-    private val organizadorDeTurnos =
-            OrganizadorDeTurnosPrincipal(jugadores, JuegoNuevaVueltaListener())
+    private val organizadorDeTurnos = OrganizadorDeTurnosPrincipal(jugadores)
 
     init {
         repartirPaises()
         repartirObjetivos()
-        vista.primeraFaseDeIncorporacion()
-        // falta incorporar los primeros paises
+        vista.primeraFaseDeIncorporacion(
+                EncargadoPrimeraFaseDeIncorporacion(
+                        jugadores, paises, organizadorDeTurnos.mano, vista,
+                        JuegoTerminaPrimeraFaseDeIncorporacionListener()
+                )
+        )
     }
 
-    fun terminarPrimeraVueltaDeIncorporacion() {
-        organizadorDeTurnos.nuevaVuelta()
+    fun terminarPrimeraFaseIncorporacion() {
         comienzoEtapaIncorporacion()
     }
 
@@ -98,5 +99,12 @@ class Juego(val jugadores: List<Jugador>, var vista: JuegoView) {
     private fun sacarTarjetaDeSituacion(): TarjetaDeSituacion {
         tarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
         return tarjetaDeSituacion as TarjetaDeSituacion
+    }
+
+    private inner class JuegoTerminaPrimeraFaseDeIncorporacionListener :
+            EncargadoPrimeraFaseDeIncorporacion.TerminarListener {
+        override fun terminarFase() {
+            terminarPrimeraFaseIncorporacion()
+        }
     }
 }
