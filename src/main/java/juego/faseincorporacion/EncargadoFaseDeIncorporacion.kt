@@ -18,6 +18,7 @@ class EncargadoFaseDeIncorporacion(jugadores: List<Jugador>,
         private set
 
     init {
+        vista.encargado = this
         vista.nuevoTurnoDeVueltaDeIncorporacion(incorporadorDePrimeraVuelta())
     }
 

@@ -24,6 +24,7 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
             OrganizadorDeTurnosPrincipal(jugadores, mano)
 
     init {
+        vista.encargado = this
         comienzoEtapaIncorporacion()
     }
 
