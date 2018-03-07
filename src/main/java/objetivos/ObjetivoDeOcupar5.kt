@@ -3,6 +3,7 @@ package objetivos
 import juego.Jugador
 import paises.Continente
 import paises.PaisEnJuego
+import paises.cantPaisesDeContinenteConDueno
 
 class ObjetivoDeOcupar5 : ObjetivoDeOcupar {
     override val descripcion =
@@ -12,20 +13,20 @@ class ObjetivoDeOcupar5 : ObjetivoDeOcupar {
 
     override fun cumplido(paises: List<PaisEnJuego>, conquistado: PaisEnJuego,
             jugadores: List<Jugador>, jugadorActual: Int): Boolean {
-        val cantPaisesAmericaDelNorte = paises.cantPaisesDeContinenteConDueno(
+        val cantPaisesAmericaDelNorte = cantPaisesDeContinenteConDueno(
                 paises, Continente.AMERICA_DEL_NORTE, jugadorActual,
                 conquistado)
-        val cantPaisesEuropa = paises.cantPaisesDeContinenteConDueno(
+        val cantPaisesEuropa = cantPaisesDeContinenteConDueno(
                 paises, Continente.EUROPA, jugadorActual, conquistado)
-        val cantPaisesAsia = paises.cantPaisesDeContinenteConDueno(
+        val cantPaisesAsia = cantPaisesDeContinenteConDueno(
                 paises, Continente.ASIA, jugadorActual, conquistado)
-        val cantPaisesAmericaDelSur = paises.cantPaisesDeContinenteConDueno(
+        val cantPaisesAmericaDelSur = cantPaisesDeContinenteConDueno(
                 paises, Continente.AMERICA_DEL_SUR, jugadorActual, conquistado)
-        val cantPaisesAmericaCentral = paises.cantPaisesDeContinenteConDueno(
+        val cantPaisesAmericaCentral = cantPaisesDeContinenteConDueno(
                 paises, Continente.AMERICA_CENTRAL, jugadorActual, conquistado)
-        val cantPaisesAfrica = paises.cantPaisesDeContinenteConDueno(
+        val cantPaisesAfrica = cantPaisesDeContinenteConDueno(
                 paises, Continente.AFRICA, jugadorActual, conquistado)
-        val cantPaisesOceania = paises.cantPaisesDeContinenteConDueno(
+        val cantPaisesOceania = cantPaisesDeContinenteConDueno(
                 paises, Continente.OCEANIA, jugadorActual, conquistado)
         return cantPaisesAmericaDelNorte >= 4 &&
                 cantPaisesEuropa >= 4 &&

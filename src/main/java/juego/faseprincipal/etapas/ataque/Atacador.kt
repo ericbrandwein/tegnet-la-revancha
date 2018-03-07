@@ -1,15 +1,18 @@
-package juego.faseprincipal.etapas
+package juego.faseprincipal.etapas.ataque
 
+import juego.Jugador
 import paises.PaisEnJuego
+import paises.cantPaisesConDueno
 import paises.paisConNombre
 import kotlin.math.min
 
 /**
  * Encargado de realizar las acciones necesarias en la [EtapaDeTurno.ATAQUE].
  */
-class Atacador(val paises: List<PaisEnJuego>, val jugador: Int) {
+class Atacador(val paises: List<PaisEnJuego>, val jugadores: List<Jugador>,
+        val jugador: Int, val listener: GanadoListener,
+        val vista: VistaEtapaAtaque) {
     var paisesConquistados = 0
-    var elegidor: ElegidorDeEjercitosQuePasar? = null
 
     fun paisesAtacablesDesde(nombrePais: String): List<PaisEnJuego> {
         val pais = paisConNombre(paises, nombrePais)
@@ -37,26 +40,31 @@ class Atacador(val paises: List<PaisEnJuego>, val jugador: Int) {
     }
 
     private fun conquistar(atacante: PaisEnJuego, atacado: PaisEnJuego) {
+        val antiguoDueno = atacado.dueno
+        if (jugadores[jugador].objetivo!!.cumplido(
+                        paises, atacado, jugadores, jugador)) {
+            listener.gano()
+        }
         atacado.dueno = jugador
         paisesConquistados++
-        var pasar = 1
-        if (elegidor != null) {
-            pasar = elegidor!!.cuantosPasar(atacante, atacado)
-        }
+        val pasar = vista.cuantosPasar(atacante, atacado)
         atacante.ejercitos -= pasar
         atacado.ejercitos += pasar
+        if (perdio(antiguoDueno)) {
+            jugadores[antiguoDueno].perdio = true
+            vista.perdio(antiguoDueno)
+        }
     }
 
     fun puedenPasarseDesde(atacante: PaisEnJuego): Int =
             min(atacante.ejercitos - 1, 3)
 
-    interface ElegidorDeEjercitosQuePasar {
+    private fun perdio(jugador: Int) = cantPaisesConDueno(paises, jugador) == 0
+
+    interface GanadoListener {
         /**
-         * Es llamado cuando se conquista el pais [atacado].
-         * Determina cuantos ejercitos se deberían pasar.
-         *
-         * @see puedenPasarseDesde
+         * Se llama cuando el jugador actual ganó.
          */
-        fun cuantosPasar(atacante: PaisEnJuego, atacado: PaisEnJuego): Int
+        fun gano()
     }
 }

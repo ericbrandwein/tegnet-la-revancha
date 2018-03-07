@@ -2,6 +2,7 @@ package objetivos
 
 import juego.Jugador
 import paises.PaisEnJuego
+import paises.cantPaisesConDueno
 
 abstract class ObjetivoDeDestruir : Objetivo {
     override fun cumplido(paises: List<PaisEnJuego>, conquistado: PaisEnJuego,
@@ -22,7 +23,7 @@ abstract class ObjetivoDeDestruir : Objetivo {
     private fun esSuUltimoPais(paises: List<PaisEnJuego>, pais: PaisEnJuego,
                                jugador: Int): Boolean {
         return pais.dueno == jugador &&
-                paises.cantPaisesConDueno(paises, jugador) == 1
+                cantPaisesConDueno(paises, jugador) == 1
     }
 
     /**

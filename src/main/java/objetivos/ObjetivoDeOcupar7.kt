@@ -3,6 +3,8 @@ package objetivos
 import juego.Jugador
 import paises.Continente
 import paises.PaisEnJuego
+import paises.cantPaisesDeContinenteConDueno
+import paises.continenteConquistado
 
 class ObjetivoDeOcupar7 : ObjetivoDeOcupar {
     override val descripcion =
@@ -11,15 +13,15 @@ class ObjetivoDeOcupar7 : ObjetivoDeOcupar {
 
     override fun cumplido(paises: List<PaisEnJuego>, conquistado: PaisEnJuego,
             jugadores: List<Jugador>, jugadorActual: Int): Boolean {
-        val americaCentralConquistado = paises.continenteConquistado(
+        val americaCentralConquistado = continenteConquistado(
                 paises, Continente.AMERICA_CENTRAL, jugadorActual, conquistado)
         val cantAmericaDelSurConquistado =
-                paises.cantPaisesDeContinenteConDueno(
+                cantPaisesDeContinenteConDueno(
                         paises, Continente.AMERICA_DEL_SUR, jugadorActual,
                         conquistado)
-        val cantEuropaConquistado = paises.cantPaisesDeContinenteConDueno(
+        val cantEuropaConquistado = cantPaisesDeContinenteConDueno(
                 paises, Continente.EUROPA, jugadorActual, conquistado)
-        val cantAsiaConquistado = paises.cantPaisesDeContinenteConDueno(
+        val cantAsiaConquistado = cantPaisesDeContinenteConDueno(
                 paises, Continente.ASIA, jugadorActual, conquistado)
         return americaCentralConquistado && cantAmericaDelSurConquistado >= 6 &&
                 cantEuropaConquistado >= 6 && cantAsiaConquistado >= 6

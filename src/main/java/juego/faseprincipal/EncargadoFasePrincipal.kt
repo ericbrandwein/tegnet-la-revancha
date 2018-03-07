@@ -2,10 +2,10 @@ package juego.faseprincipal
 
 import juego.Jugador
 import juego.Mazo
-import juego.faseprincipal.etapas.Atacador
 import juego.faseprincipal.etapas.EtapaDeTurno
 import juego.faseprincipal.etapas.Incorporador
 import juego.faseprincipal.etapas.Reagrupador
+import juego.faseprincipal.etapas.ataque.Atacador
 import juego.faseprincipal.situacion.TarjetaDeSituacion
 import juego.faseprincipal.situacion.armarMazoDeSituacion
 import paises.PaisEnJuego
@@ -44,7 +44,16 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
 
     private fun comienzoEtapaAtaque() {
         etapa = EtapaDeTurno.ATAQUE
-        vista.etapaDeAtaque(Atacador(paises, organizadorDeTurnos.jugadorActual))
+        val jugadorActual = organizadorDeTurnos.jugadorActual
+        vista.etapaDeAtaque(
+                Atacador(
+                        paises, jugadores, jugadorActual,
+                        object : Atacador.GanadoListener {
+                            override fun gano() {
+                                listener.gano(jugadorActual)
+                            }
+                        }, vista.vistaEtapaAtaque)
+        )
     }
 
     fun finEtapaAtaque() {

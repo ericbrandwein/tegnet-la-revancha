@@ -1,4 +1,4 @@
-package juego.faseprincipal.etapas
+package juego.faseprincipal.etapas.ataque
 
 import juego.getRandomInt
 import paises.PaisEnJuego
@@ -9,17 +9,22 @@ import kotlin.math.min
  * cantidad de ejercitos que correspondan.
  */
 fun batallar(desde: PaisEnJuego, hacia: PaisEnJuego) {
-    val cantDadosAtacante = cantDadosAtacante(desde)
-    val cantDadosDefensor = cantDadosDefensor(hacia)
-    var tiradaAtacante = tirarDados(cantDadosAtacante)
-    var tiradaDefensor = tirarDados(cantDadosDefensor)
+    val cantDadosAtacante =
+            cantDadosAtacante(desde)
+    val cantDadosDefensor =
+            cantDadosDefensor(hacia)
+    var tiradaAtacante =
+            tirarDados(cantDadosAtacante)
+    var tiradaDefensor =
+            tirarDados(cantDadosDefensor)
 
     // hago que tengan la misma cantidad de elementos, ya que ya estan ordenados
     val ejercitosEnRiesgo = min(cantDadosAtacante, cantDadosDefensor)
     tiradaAtacante = tiradaAtacante.take(ejercitosEnRiesgo)
     tiradaDefensor = tiradaDefensor.take(ejercitosEnRiesgo)
 
-    val ganados = cantGanados(tiradaAtacante, tiradaDefensor)
+    val ganados = cantGanados(
+            tiradaAtacante, tiradaDefensor)
     desde.ejercitos -= ejercitosEnRiesgo - ganados
     hacia.ejercitos -= ganados
 }
