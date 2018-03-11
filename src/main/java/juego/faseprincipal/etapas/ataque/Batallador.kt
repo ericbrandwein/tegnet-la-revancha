@@ -10,7 +10,7 @@ import kotlin.math.min
  */
 fun batallar(desde: PaisEnJuego, hacia: PaisEnJuego) {
     val cantDadosAtacante =
-            cantDadosAtacante(desde)
+            cantDadosAtacante(desde.ejercitos, hacia.ejercitos)
     val cantDadosDefensor =
             cantDadosDefensor(hacia)
     var tiradaAtacante =
@@ -38,8 +38,13 @@ private fun cantGanados(tiradaAtacante: List<Int>, tiradaDefensor: List<Int>) =
                 .mapIndexed { indice, dado -> dado > tiradaDefensor[indice] }
                 .count { it }
 
-private fun cantDadosAtacante(atacante: PaisEnJuego) =
-        min(atacante.ejercitos - 1, 3)
+private fun cantDadosAtacante(ejercitosAtacante: Int, ejercitosDefensor: Int) =
+        if (ejercitosDefensor >= 3 &&
+                ejercitosAtacante >= ejercitosDefensor * 2) {
+            4
+        } else {
+            min(ejercitosAtacante - 1, 3)
+        }
 
 private fun cantDadosDefensor(defensor: PaisEnJuego) =
         min(defensor.ejercitos, 3)
