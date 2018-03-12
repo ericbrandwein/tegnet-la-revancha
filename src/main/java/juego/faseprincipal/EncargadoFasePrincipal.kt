@@ -20,8 +20,11 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
             armarMazoDeSituacion()
     var tarjetaDeSituacion: TarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
         private set
+    private var atacadorActual: Atacador? = null
     private val organizadorDeTurnos =
             OrganizadorDeTurnosPrincipal(jugadores, mano)
+    private val tarjetasDeJugadores =
+            TarjetasDeJugadores(jugadores.size, paises)
 
     init {
         vista.encargado = this
@@ -45,15 +48,14 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     private fun comienzoEtapaAtaque() {
         etapa = EtapaDeTurno.ATAQUE
         val jugadorActual = organizadorDeTurnos.jugadorActual
-        vista.etapaDeAtaque(
-                Atacador(
-                        paises, jugadores, jugadorActual,
-                        object : Atacador.GanadoListener {
-                            override fun gano() {
-                                listener.gano(jugadorActual)
-                            }
-                        }, vista.vistaEtapaAtaque)
-        )
+        atacadorActual = Atacador(
+                paises, jugadores, jugadorActual,
+                object : Atacador.GanadoListener {
+                    override fun gano() {
+                        listener.gano(jugadorActual)
+                    }
+                }, vista.vistaEtapaAtaque, tarjetaDeSituacion)
+        vista.etapaDeAtaque(atacadorActual!!)
     }
 
     fun finEtapaAtaque() {
@@ -73,10 +75,21 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     }
 
     private fun terminarTurno() {
+        if (puedeSacarTarjetaDePais()) {
+            sacarTarjetaDePais()
+        }
+        atacadorActual = null
         if (organizadorDeTurnos.pasarTurno()) {
             sacarTarjetaDeSituacion()
         }
         comienzoEtapaIncorporacion()
+    }
+
+    private fun puedeSacarTarjetaDePais() =
+            atacadorActual != null && atacadorActual!!.paisesConquistados > 0
+
+    private fun sacarTarjetaDePais() {
+        tarjetasDeJugadores.sacarTarjeta(organizadorDeTurnos.jugadorActual)
     }
 
     private fun chequearEtapa(etapaNecesaria: EtapaDeTurno) {
