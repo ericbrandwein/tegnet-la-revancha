@@ -1,6 +1,7 @@
 package juego.faseprincipal.etapas.ataque
 
 import juego.Jugador
+import juego.faseprincipal.situacion.TarjetaDeSituacion
 import paises.PaisEnJuego
 import paises.cantPaisesConDueno
 import paises.paisConNombre
@@ -10,8 +11,9 @@ import kotlin.math.min
  * Encargado de realizar las acciones necesarias en la [EtapaDeTurno.ATAQUE].
  */
 class Atacador(val paises: List<PaisEnJuego>, val jugadores: List<Jugador>,
-        val jugador: Int, val listener: GanadoListener,
-        val vista: VistaEtapaAtaque) {
+        val jugador: Int, private val listener: GanadoListener,
+        private val vista: VistaEtapaAtaque,
+        private val situacion: TarjetaDeSituacion) {
     var paisesConquistados = 0
 
     fun paisesAtacablesDesde(nombrePais: String): List<PaisEnJuego> {
@@ -32,7 +34,7 @@ class Atacador(val paises: List<PaisEnJuego>, val jugadores: List<Jugador>,
     fun atacar(atacante: String, atacado: String) {
         val paisAtacante = paisConNombre(paises, atacante)
         val paisAtacado = paisConNombre(paises, atacado)
-        batallar(paisAtacante, paisAtacado)
+        batallar(paisAtacante, paisAtacado, situacion)
         val conquistado = paisAtacado.ejercitos == 0
         if (conquistado) {
             conquistar(paisAtacante, paisAtacado)
