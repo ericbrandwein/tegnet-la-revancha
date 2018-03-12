@@ -87,9 +87,8 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     private fun ejercitosIncorporablesEnTurno() =
             cantPaisesConDueno(paises, organizadorDeTurnos.jugadorActual) / 2
 
-    private fun sacarTarjetaDeSituacion(): TarjetaDeSituacion {
+    private fun sacarTarjetaDeSituacion() {
         tarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
-        return tarjetaDeSituacion
     }
 
     interface GanadoListener {
