@@ -6,7 +6,7 @@ import java.util.*
 
 private const val ARCHIVO_DE_TARJETAS = "/tarjetas-paises.json"
 
-fun deserializar(): List<TarjetaDePais> {
+fun deserializarTarjetasDePaises(): List<TarjetaDePais> {
     val mapper = ObjectMapper()
     val archivo = File(
             Object::class.java.getResource(ARCHIVO_DE_TARJETAS).toURI()

@@ -1,7 +1,7 @@
 package juego.faseprincipal
 
 import juego.Jugador
-import juego.Mazo
+import juego.mazo.MazoMezclante
 import juego.faseprincipal.etapas.EtapaDeTurno
 import juego.faseprincipal.etapas.Incorporador
 import juego.faseprincipal.etapas.Reagrupador
@@ -17,7 +17,7 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
         private val vista: VistaFasePrincipal,
         var listener: GanadoListener) {
     var etapa: EtapaDeTurno = EtapaDeTurno.INCORPORACION
-    private val mazoDeSituacion: Mazo<TarjetaDeSituacion> =
+    private val mazoDeSituacion: MazoMezclante<TarjetaDeSituacion> =
             armarMazoDeSituacion()
     var tarjetaDeSituacion: TarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
         private set

@@ -1,6 +1,6 @@
 package juego.faseprincipal.situacion
 
-import juego.Mazo
+import juego.mazo.MazoMezclante
 
 private val CANT_TARJETAS =
         mapOf(
@@ -20,11 +20,11 @@ private val CANT_TARJETAS =
         )
 
 
-fun armarMazoDeSituacion() : Mazo<TarjetaDeSituacion> {
+fun armarMazoDeSituacion() : MazoMezclante<TarjetaDeSituacion> {
     val tarjetas = mutableListOf<TarjetaDeSituacion>()
     for ((tarjeta, cantidad) in CANT_TARJETAS)
         for (i in 1..cantidad)
             tarjetas.add(tarjeta)
 
-    return Mazo(tarjetas)
+    return MazoMezclante(tarjetas)
 }
