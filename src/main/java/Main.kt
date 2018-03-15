@@ -1,7 +1,6 @@
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
-import javafx.scene.layout.VBox
 import javafx.stage.Stage
 import juego.Juego
 import juego.Jugador
@@ -25,7 +24,7 @@ class MainApplication : Application(),
     }
 
     override fun comenzarJuego(jugadores: List<Jugador>) {
-        juego = Juego(jugadores)
+//        juego = Juego(jugadores)
         jugadores.forEach { println(it) }
     }
 }

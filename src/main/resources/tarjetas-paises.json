@@ -1,0 +1,290 @@
+[
+  {
+    "nombre": "Alemania",
+    "simbolos": ["COMODIN"]
+  },
+  {
+    "nombre": "Angola",
+    "simbolos": ["COMODIN"]
+  },
+  {
+    "nombre": "Alaska",
+    "simbolos": ["COMODIN"]
+  },
+  {
+    "nombre": "Albania",
+    "simbolos": ["COMODIN"]
+  },
+  {
+  "nombre": "Argentina",
+  "simbolos": ["AVION", "SOLDADO", "ANCLA"]
+  },
+  {
+    "nombre": "Mauritania",
+    "simbolos": ["AVION", "SOLDADO", "ANCLA"]
+  },
+  {
+    "nombre": "Las Vegas",
+    "simbolos": ["AVION", "SOLDADO", "ANCLA"]
+  },
+  {
+    "nombre": "Chechenia",
+    "simbolos": ["AVION", "SOLDADO", "ANCLA"]
+  },
+  {
+    "nombre": "Ucrania",
+    "simbolos": ["AVION", "SOLDADO", "ANCLA"]
+  },
+  {
+    "nombre": "Honduras",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Madagascar",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Kamtchatka",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Italia",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Finlandia",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Islandia",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Gran Bretaña",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Mexico",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Florida",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Irak",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Iran",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Nicaragua",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Israel",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Labrador",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Groenlandia",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Francia",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "India",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Isla Victoria",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Jamaica",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Malasia",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "Japon",
+    "simbolos": ["ANCLA"]
+  },
+  {
+    "nombre": "El Salvador",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Siberia",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Portugal",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Oregon",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Sumatra",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Nueva Zelandia",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Paraguay",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Rusia",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Sahara",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Polonia",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Turquia",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Venezuela",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Serbia",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Vietnam",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Terranova",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Nueva York",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Sudafrica",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Uruguay",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Tasmania",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Nigeria",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "Tonga",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "nombre": "España",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Chile",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Arabia",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Filipinas",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Australia",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Cuba",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "China",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Chicago",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Irlanda",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Bielorrusia",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Corea",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "California",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Croacia",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Colombia",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Bolivia",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Egipto",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Brasil",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Chukchi",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Canada",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Etiopia",
+    "simbolos": ["AVION"]
+  },
+  {
+    "nombre": "Nicaragua",
+    "simbolos": ["AVION"]
+  }
+]

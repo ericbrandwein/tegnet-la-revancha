@@ -8,6 +8,7 @@ import juego.faseprincipal.etapas.Reagrupador
 import juego.faseprincipal.etapas.ataque.Atacador
 import juego.faseprincipal.situacion.TarjetaDeSituacion
 import juego.faseprincipal.situacion.armarMazoDeSituacion
+import juego.faseprincipal.tarjetasdepaises.TarjetasDeJugadores
 import paises.PaisEnJuego
 import paises.cantPaisesConDueno
 
