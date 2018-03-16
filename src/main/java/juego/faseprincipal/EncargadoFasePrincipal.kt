@@ -8,7 +8,7 @@ import juego.faseprincipal.etapas.Reagrupador
 import juego.faseprincipal.etapas.ataque.Atacador
 import juego.faseprincipal.situacion.TarjetaDeSituacion
 import juego.faseprincipal.situacion.armarMazoDeSituacion
-import juego.faseprincipal.tarjetasdepaises.TarjetasDeJugadores
+import juego.faseprincipal.tarjetasconsimbolos.TarjetasDeJugadores
 import paises.PaisEnJuego
 import paises.cantPaisesConDueno
 
@@ -24,8 +24,7 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     private var atacadorActual: Atacador? = null
     private val organizadorDeTurnos =
             OrganizadorDeTurnosPrincipal(jugadores, mano)
-    private val tarjetasDeJugadores =
-            TarjetasDeJugadores(jugadores.size, paises)
+    private val tarjetasDeJugadores = TarjetasDeJugadores(jugadores.size)
 
     init {
         vista.encargado = this
@@ -90,7 +89,7 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
             atacadorActual != null && atacadorActual!!.paisesConquistados > 0
 
     private fun sacarTarjetaDePais() {
-        tarjetasDeJugadores.sacarTarjeta(organizadorDeTurnos.jugadorActual)
+        tarjetasDeJugadores.sacarTarjetaDePais(organizadorDeTurnos.jugadorActual)
     }
 
     private fun chequearEtapa(etapaNecesaria: EtapaDeTurno) {

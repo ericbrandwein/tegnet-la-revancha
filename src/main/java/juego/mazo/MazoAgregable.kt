@@ -21,4 +21,8 @@ class MazoAgregable<T>(tarjetas: List<T>) {
     fun agregarTarjeta(tarjeta: T) {
         agregadas += tarjeta
     }
+
+    fun agregarTarjetas(tarjetas: Array<out T>) {
+        agregadas.addAll(tarjetas)
+    }
 }

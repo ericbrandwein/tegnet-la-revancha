@@ -1,0 +1,30 @@
+[
+  {
+    "continente": "OCEANIA",
+    "simbolos": ["SOLDADO"]
+  },
+  {
+    "continente": "AFRICA",
+    "simbolos": ["SOLDADO", "ANCLA"]
+  },
+  {
+    "continente": "AMERICA_DEL_SUR",
+    "simbolos": ["AVION", "ANCLA"]
+  },
+  {
+    "continente": "AMERICA_CENTRAL",
+    "simbolos": ["AVION"]
+  },
+  {
+    "continente": "AMERICA_DEL_NORTE",
+    "simbolos": ["AVION", "SOLDADO", "ANCLA"]
+  },
+  {
+    "continente": "ASIA",
+    "simbolos": ["AVION", "SOLDADO", "ANCLA"]
+  },
+  {
+    "continente": "EUROPA",
+    "simbolos": ["AVION", "SOLDADO", "ANCLA"]
+  }
+]
