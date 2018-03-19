@@ -10,7 +10,7 @@ import kotlin.math.min
 /**
  * Encargado de realizar las acciones necesarias en la [EtapaDeTurno.ATAQUE].
  */
-class Atacador(val paises: List<PaisEnJuego>, val jugadores: List<Jugador>,
+class EncargadoEtapaAtaque(val paises: List<PaisEnJuego>, val jugadores: List<Jugador>,
         val jugador: Int, private val listener: GanadoListener,
         private val vista: VistaEtapaAtaque,
         private val situacion: TarjetaDeSituacion) {

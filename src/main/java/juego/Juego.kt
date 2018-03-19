@@ -11,13 +11,13 @@ class Juego(val jugadores: List<Jugador>, var vista: VistaJuego) {
     var paises: List<PaisEnJuego> = PaisEnJuego.desdePaises(listaDePaises())
     val mano: Int = getRandomInt(jugadores.size)
 
-    init {
+    fun comenzar() {
         repartirPaises()
         repartirObjetivos()
         EncargadoFaseDeIncorporacion(
                 jugadores, paises, mano, vista.vistaFaseIncorporacion,
                 JuegoTerminaPrimeraFaseDeIncorporacionListener()
-        )
+        ).comenzar()
     }
 
     fun terminarFaseIncorporacion() {
@@ -27,7 +27,8 @@ class Juego(val jugadores: List<Jugador>, var vista: VistaJuego) {
                     override fun gano(jugador: Int) {
                         println("gano $jugador!")
                     }
-                })
+                }
+        ).comenzar()
     }
 
     private fun repartirPaises() {

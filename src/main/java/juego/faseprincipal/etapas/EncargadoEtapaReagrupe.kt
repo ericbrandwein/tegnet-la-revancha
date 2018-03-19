@@ -6,7 +6,7 @@ import paises.paisConNombre
 /**
  * Encargado de realizar las acciones necesarias en la [EtapaDeTurno.REAGRUPE].
  */
-class Reagrupador(val paises: List<PaisEnJuego>, val jugador: Int) {
+class EncargadoEtapaReagrupe(val paises: List<PaisEnJuego>, val jugador: Int) {
     val ejercitosTrabados = mutableMapOf<PaisEnJuego, Int>()
 
     fun paisesReagrupablesDesde(desde: String): List<PaisEnJuego> {

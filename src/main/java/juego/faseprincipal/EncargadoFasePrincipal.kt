@@ -1,16 +1,16 @@
 package juego.faseprincipal
 
 import juego.Jugador
-import juego.mazo.MazoMezclante
+import juego.faseprincipal.canjes.Canjeador
+import juego.faseprincipal.etapas.EncargadoEtapaIncorporacion
+import juego.faseprincipal.etapas.EncargadoEtapaReagrupe
 import juego.faseprincipal.etapas.EtapaDeTurno
-import juego.faseprincipal.etapas.Incorporador
-import juego.faseprincipal.etapas.Reagrupador
-import juego.faseprincipal.etapas.ataque.Atacador
+import juego.faseprincipal.etapas.ataque.EncargadoEtapaAtaque
 import juego.faseprincipal.situacion.TarjetaDeSituacion
 import juego.faseprincipal.situacion.armarMazoDeSituacion
 import juego.faseprincipal.tarjetasconsimbolos.TarjetasDeJugadores
+import juego.mazo.MazoMezclante
 import paises.PaisEnJuego
-import paises.cantPaisesConDueno
 
 class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
         val jugadores: List<Jugador>, mano: Int,
@@ -21,22 +21,23 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
             armarMazoDeSituacion()
     var tarjetaDeSituacion: TarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
         private set
-    private var atacadorActual: Atacador? = null
+    private var encargadoEtapaAtaqueActual: EncargadoEtapaAtaque? = null
     private val organizadorDeTurnos =
             OrganizadorDeTurnosPrincipal(jugadores, mano)
     private val tarjetasDeJugadores = TarjetasDeJugadores(jugadores.size)
+    private val canjeador = Canjeador(jugadores.size, tarjetasDeJugadores)
 
-    init {
-        vista.encargado = this
+
+    fun comenzar() {
+        vista.encargadoFase = this
         comienzoEtapaIncorporacion()
     }
 
     private fun comienzoEtapaIncorporacion() {
         vista.etapaDeIncorporacion(
-                Incorporador(
-                        paises, organizadorDeTurnos.jugadorActual,
-                        ejercitosIncorporablesEnTurno()
-                )
+                EncargadoEtapaIncorporacion(
+                        organizadorDeTurnos.jugadorActual, paises,
+                        tarjetasDeJugadores, canjeador)
         )
     }
 
@@ -48,14 +49,14 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     private fun comienzoEtapaAtaque() {
         etapa = EtapaDeTurno.ATAQUE
         val jugadorActual = organizadorDeTurnos.jugadorActual
-        atacadorActual = Atacador(
+        encargadoEtapaAtaqueActual = EncargadoEtapaAtaque(
                 paises, jugadores, jugadorActual,
-                object : Atacador.GanadoListener {
+                object : EncargadoEtapaAtaque.GanadoListener {
                     override fun gano() {
                         listener.gano(jugadorActual)
                     }
                 }, vista.vistaEtapaAtaque, tarjetaDeSituacion)
-        vista.etapaDeAtaque(atacadorActual!!)
+        vista.etapaDeAtaque(encargadoEtapaAtaqueActual!!)
     }
 
     fun finEtapaAtaque() {
@@ -66,7 +67,8 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     private fun comienzoEtapaReagrupe() {
         etapa = EtapaDeTurno.REAGRUPE
         vista.etapaDeReagrupe(
-                Reagrupador(paises, organizadorDeTurnos.jugadorActual))
+                EncargadoEtapaReagrupe(
+                        paises, organizadorDeTurnos.jugadorActual))
     }
 
     fun finEtapaReagrupe() {
@@ -78,7 +80,7 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
         if (puedeSacarTarjetaDePais()) {
             sacarTarjetaDePais()
         }
-        atacadorActual = null
+        encargadoEtapaAtaqueActual = null
         if (organizadorDeTurnos.pasarTurno()) {
             sacarTarjetaDeSituacion()
         }
@@ -86,19 +88,17 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     }
 
     private fun puedeSacarTarjetaDePais() =
-            atacadorActual != null && atacadorActual!!.paisesConquistados > 0
+            encargadoEtapaAtaqueActual != null && encargadoEtapaAtaqueActual!!.paisesConquistados > 0
 
     private fun sacarTarjetaDePais() {
-        tarjetasDeJugadores.sacarTarjetaDePais(organizadorDeTurnos.jugadorActual)
+        tarjetasDeJugadores.sacarTarjetaDePais(
+                organizadorDeTurnos.jugadorActual)
     }
 
     private fun chequearEtapa(etapaNecesaria: EtapaDeTurno) {
         if (etapa != etapaNecesaria)
             throw EtapaEquivocadaException(etapa, etapaNecesaria)
     }
-
-    private fun ejercitosIncorporablesEnTurno() =
-            cantPaisesConDueno(paises, organizadorDeTurnos.jugadorActual) / 2
 
     private fun sacarTarjetaDeSituacion() {
         tarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()

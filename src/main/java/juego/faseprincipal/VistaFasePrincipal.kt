@@ -1,15 +1,15 @@
 package juego.faseprincipal
 
-import juego.faseprincipal.etapas.ataque.Atacador
-import juego.faseprincipal.etapas.Incorporador
-import juego.faseprincipal.etapas.Reagrupador
+import juego.faseprincipal.etapas.EncargadoEtapaIncorporacion
+import juego.faseprincipal.etapas.EncargadoEtapaReagrupe
+import juego.faseprincipal.etapas.ataque.EncargadoEtapaAtaque
 import juego.faseprincipal.etapas.ataque.VistaEtapaAtaque
 
 interface VistaFasePrincipal {
-    var encargado: EncargadoFasePrincipal
+    var encargadoFase: EncargadoFasePrincipal
     val vistaEtapaAtaque: VistaEtapaAtaque
 
-    fun etapaDeIncorporacion(incorporador: Incorporador)
-    fun etapaDeAtaque(atacador: Atacador)
-    fun etapaDeReagrupe(reagrupador: Reagrupador)
+    fun etapaDeIncorporacion(encargado: EncargadoEtapaIncorporacion)
+    fun etapaDeAtaque(encargado: EncargadoEtapaAtaque)
+    fun etapaDeReagrupe(encargado: EncargadoEtapaReagrupe)
 }

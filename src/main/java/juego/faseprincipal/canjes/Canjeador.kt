@@ -76,10 +76,8 @@ class Canjeador(jugadores: Int,
     }
 
     /**
-     * Determina si el [jugador] puede obtener la tarjeta del [continente].
-     *
-     * Esto ocurre si el jugador todavía no hizo un canje con esa tarjeta.
+     * Determina si el [jugador] canjeo la tarjeta del [continente].
      */
-    fun puedeSacarTarjetaDeContinente(jugador: Int, continente: Continente) =
-            !tarjetasDeContinenteCanjeadas[jugador].contains(continente)
+    fun canjeoTarjetaDeContinente(jugador: Int, continente: Continente) =
+            tarjetasDeContinenteCanjeadas[jugador].contains(continente)
 }

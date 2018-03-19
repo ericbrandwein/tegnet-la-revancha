@@ -1,7 +1,6 @@
 package juego.faseincorporacion
 
 import juego.Jugador
-import juego.faseprincipal.etapas.Incorporador
 import juego.turnos.OrganizadorDeTurnos
 import paises.PaisEnJuego
 
@@ -17,7 +16,7 @@ class EncargadoFaseDeIncorporacion(jugadores: List<Jugador>,
     var vuelta = 1
         private set
 
-    init {
+    fun comenzar() {
         vista.encargado = this
         vista.nuevoTurnoDeVueltaDeIncorporacion(incorporadorDePrimeraVuelta())
     }
@@ -44,7 +43,8 @@ class EncargadoFaseDeIncorporacion(jugadores: List<Jugador>,
             incorporador(EJERCITOS_SEGUNDA_VUELTA)
 
     private fun incorporador(ejercitos: Int) =
-            Incorporador(paises, organizadorDeTurnos.jugadorActual, ejercitos)
+            Incorporador(
+                    paises, organizadorDeTurnos.jugadorActual, ejercitos)
 
     interface TerminarListener {
         fun terminarFase()
