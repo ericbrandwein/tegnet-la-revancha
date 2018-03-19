@@ -1,15 +1,14 @@
 package juego.faseprincipal.etapas.ataque
 
-import paises.PaisEnJuego
-
 interface VistaEtapaAtaque {
     /**
      * Es llamado cuando se conquista el pais [atacado].
-     * Determina cuantos ejercitos se deberían pasar.
+     * Se debe llamar a [EncargadoEtapaAtaque.pasarEjercitos] cuando se
+     * eligen los ejercitos.
      *
      * @see puedenPasarseDesde
      */
-    fun cuantosPasar(atacante: PaisEnJuego, atacado: PaisEnJuego): Int
+    fun elegidorDeEjercitosQuePasar()
 
     /**
      * Se llama cuando el [jugador] pierde.

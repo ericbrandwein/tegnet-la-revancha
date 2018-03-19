@@ -15,6 +15,9 @@ class EncargadoEtapaAtaque(val paises: List<PaisEnJuego>, val jugadores: List<Ju
         private val vista: VistaEtapaAtaque,
         private val situacion: TarjetaDeSituacion) {
     var paisesConquistados = 0
+        private set
+    private var ultimoAtaque: Pair<PaisEnJuego, PaisEnJuego>? = null
+    private var ultimoDueno: Int? = null
 
     fun paisesAtacablesDesde(nombrePais: String): List<PaisEnJuego> {
         val pais = paisConNombre(paises, nombrePais)
@@ -42,20 +45,26 @@ class EncargadoEtapaAtaque(val paises: List<PaisEnJuego>, val jugadores: List<Ju
     }
 
     private fun conquistar(atacante: PaisEnJuego, atacado: PaisEnJuego) {
-        val antiguoDueno = atacado.dueno
+        ultimoDueno = atacado.dueno
         if (jugadores[jugador].objetivo!!.cumplido(
                         paises, atacado, jugadores, jugador)) {
             listener.gano()
         }
         atacado.dueno = jugador
         paisesConquistados++
-        val pasar = vista.cuantosPasar(atacante, atacado)
-        atacante.ejercitos -= pasar
-        atacado.ejercitos += pasar
-        if (perdio(antiguoDueno)) {
-            jugadores[antiguoDueno].perdio = true
-            vista.perdio(antiguoDueno)
+        ultimoAtaque = atacante to atacado
+        vista.elegidorDeEjercitosQuePasar()
+    }
+
+    fun pasarEjercitos(ejercitos: Int) {
+        ultimoAtaque!!.first.ejercitos -= ejercitos
+        ultimoAtaque!!.second.ejercitos += ejercitos
+        ultimoAtaque = null
+        if (perdio(ultimoDueno!!)) {
+            jugadores[ultimoDueno!!].perdio = true
+            vista.perdio(ultimoDueno!!)
         }
+        ultimoDueno = null
     }
 
     fun puedenPasarseDesde(atacante: PaisEnJuego): Int =
