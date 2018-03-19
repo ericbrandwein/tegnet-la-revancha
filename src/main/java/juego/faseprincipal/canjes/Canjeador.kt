@@ -1,17 +1,23 @@
 package juego.faseprincipal.canjes
 
 import juego.faseprincipal.tarjetasconsimbolos.*
+import paises.Continente
 
 private const val EJERCITOS_PRIMER_CANJE = 6
 
 class Canjeador(jugadores: Int,
         private val tarjetasDeJugadores: TarjetasDeJugadores) {
     private val canjes = (1..jugadores).map { 0 }.toMutableList()
+    private val tarjetasDeContinenteCanjeadas =
+            (1..jugadores).map { mutableSetOf<Continente>() }
 
-    fun cantEjercitosParaCanje(numeroDeCanje: Int): Int {
-        return if (numeroDeCanje == 1) EJERCITOS_PRIMER_CANJE
-        else numeroDeCanje * 5
-    }
+    /**
+     * Determina cuantos ejercitos se obtienen al hacer el
+     * canje numero [numeroDeCanje]. Los numeros comienzan desde el 1.
+     */
+    fun cantEjercitosParaCanje(numeroDeCanje: Int) =
+            if (numeroDeCanje == 1) EJERCITOS_PRIMER_CANJE
+            else numeroDeCanje * 5
 
     fun cantCanjes(jugador: Int) = canjes[jugador]
 
@@ -46,7 +52,20 @@ class Canjeador(jugadores: Int,
                         3 - cantidadSimbolos[Simbolo.COMODIN]!!
             }
 
-    fun canjear(jugador: Int, tarjetas: List<TarjetaConSimbolos>) {
+    /**
+     * Saca las [tarjetas] del [jugador], y devuelve la cantidad de ejercitos
+     * que se obtuvieron.
+     */
+    fun canjear(jugador: Int, tarjetasDePais: Set<TarjetaDePais>,
+            tarjetasDeContinente: Set<TarjetaDeContinente>): Int {
+        tarjetasDeJugadores.devolverTarjetasDePais(tarjetasDePais)
+        tarjetasDeJugadores.devolverTarjetasDeContinente(tarjetasDeContinente)
+        tarjetasDeContinenteCanjeadas[jugador] +=
+                tarjetasDeContinente.map { it.continente }
         canjes[jugador]++
+        return cantEjercitosParaCanje(canjes[jugador])
     }
+
+    fun puedeSacarTarjetaDeContinente(jugador: Int, continente: Continente) =
+            !tarjetasDeContinenteCanjeadas[jugador].contains(continente)
 }

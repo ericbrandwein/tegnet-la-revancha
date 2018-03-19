@@ -22,7 +22,7 @@ class MazoAgregable<T>(tarjetas: List<T>) {
         agregadas += tarjeta
     }
 
-    fun agregarTarjetas(tarjetas: Array<out T>) {
-        agregadas.addAll(tarjetas)
+    fun agregarTarjetas(tarjetas: Iterable<T>) {
+        agregadas += tarjetas
     }
 }

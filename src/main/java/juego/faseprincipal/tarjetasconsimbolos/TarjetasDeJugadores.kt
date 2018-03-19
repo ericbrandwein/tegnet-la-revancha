@@ -18,12 +18,12 @@ class TarjetasDeJugadores(jugadores: Int) {
         return tarjeta
     }
 
-    fun entregarTarjetaDeContinente(jugador: Int, continente: Continente) {
-        tarjetasDeContinente.forEach { clave, _ ->
-            if (clave.continente == continente) {
-                tarjetasDeContinente[clave] = jugador
-            }
-        }
+    fun entregarTarjetaDeContinente(jugador: Int,
+            continente: Continente): TarjetaDeContinente {
+        val tarjeta =
+                tarjetasDeContinente.keys.first { it.continente == continente }
+        tarjetasDeContinente[tarjeta] = jugador
+        return tarjeta
     }
 
     fun tarjetasDePaisDe(jugador: Int) = tarjetasDePais[jugador].toSet()
@@ -31,7 +31,7 @@ class TarjetasDeJugadores(jugadores: Int) {
     fun tarjetasDeContinenteDe(jugador: Int) =
             tarjetasDeContinente.filterValues { it == jugador }.keys
 
-    fun devolverTarjetasDePais(vararg tarjetas: TarjetaDePais) {
+    fun devolverTarjetasDePais(tarjetas: Iterable<TarjetaDePais>) {
         mazoDePaises.agregarTarjetas(tarjetas)
 
         tarjetasDePais.forEach { setDeTarjetas ->
@@ -39,7 +39,7 @@ class TarjetasDeJugadores(jugadores: Int) {
         }
     }
 
-    fun devolverTarjetasDeContinente(vararg tarjetas: TarjetaDeContinente) {
+    fun devolverTarjetasDeContinente(tarjetas: Iterable<TarjetaDeContinente>) {
         tarjetas.forEach {
             tarjetasDeContinente[it] = -1
         }
