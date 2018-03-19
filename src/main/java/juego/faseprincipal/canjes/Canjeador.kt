@@ -19,8 +19,14 @@ class Canjeador(jugadores: Int,
             if (numeroDeCanje == 1) EJERCITOS_PRIMER_CANJE
             else numeroDeCanje * 5
 
+    /**
+     * Determina cuantos canjes hizo el [jugador].
+     */
     fun cantCanjes(jugador: Int) = canjes[jugador]
 
+    /**
+     * Determina si el [jugador] puede hacer un canje con las tarjetas que posee.
+     */
     fun puedeHacerCanje(jugador: Int): Boolean {
         val tarjetasDePais: Set<TarjetaDePais> =
                 tarjetasDeJugadores.tarjetasDePaisDe(jugador)
@@ -30,6 +36,9 @@ class Canjeador(jugadores: Int,
         return puedeHacerCanjeConTarjetas(tarjetasDePais + tarjetasDeContinente)
     }
 
+    /**
+     * Determina si se puede hacer un canje con algunas de estas [tarjetas].
+     */
     fun puedeHacerCanjeConTarjetas(tarjetas: Set<TarjetaConSimbolos>): Boolean {
         val cantidadSimbolos: MutableMap<Simbolo, Int> =
                 Simbolo.values().associate { it to 0 }.toMutableMap()
@@ -66,6 +75,11 @@ class Canjeador(jugadores: Int,
         return cantEjercitosParaCanje(canjes[jugador])
     }
 
+    /**
+     * Determina si el [jugador] puede obtener la tarjeta del [continente].
+     *
+     * Esto ocurre si el jugador todavía no hizo un canje con esa tarjeta.
+     */
     fun puedeSacarTarjetaDeContinente(jugador: Int, continente: Continente) =
             !tarjetasDeContinenteCanjeadas[jugador].contains(continente)
 }
