@@ -3,7 +3,7 @@ package objetivos
 import juego.Jugador
 import paises.Continente
 import paises.PaisEnJuego
-import paises.cantPaisesDeContinenteConDueno
+import paises.cantPaisesDeContinenteConDuenoMasConquistado
 import paises.continenteConquistado
 
 class ObjetivoDeOcupar9 : ObjetivoDeOcupar {
@@ -17,10 +17,10 @@ class ObjetivoDeOcupar9 : ObjetivoDeOcupar {
         val africaConquistado = continenteConquistado(
                 paises, Continente.AFRICA, jugadorActual, conquistado)
         val cantAmericaCentralConquistado =
-                cantPaisesDeContinenteConDueno(
+                cantPaisesDeContinenteConDuenoMasConquistado(
                         paises, Continente.AMERICA_CENTRAL, jugadorActual,
                         conquistado)
-        val cantAsiaConquistado = cantPaisesDeContinenteConDueno(
+        val cantAsiaConquistado = cantPaisesDeContinenteConDuenoMasConquistado(
                 paises, Continente.ASIA, jugadorActual, conquistado)
         return oceaniaConquistado && africaConquistado &&
                 cantAmericaCentralConquistado >= 4 && cantAsiaConquistado >= 4

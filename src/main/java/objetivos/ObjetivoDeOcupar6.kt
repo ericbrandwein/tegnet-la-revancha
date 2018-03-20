@@ -3,7 +3,7 @@ package objetivos
 import juego.Jugador
 import paises.Continente
 import paises.PaisEnJuego
-import paises.cantPaisesDeContinenteConDueno
+import paises.cantPaisesDeContinenteConDuenoMasConquistado
 import paises.continenteConquistado
 
 class ObjetivoDeOcupar6 : ObjetivoDeOcupar {
@@ -14,10 +14,10 @@ class ObjetivoDeOcupar6 : ObjetivoDeOcupar {
             jugadores: List<Jugador>, jugadorActual: Int): Boolean {
         val oceaniaConquistado = continenteConquistado(
                 paises, Continente.OCEANIA, jugadorActual, conquistado)
-        val cantDeAfricaConquistados = cantPaisesDeContinenteConDueno(
+        val cantDeAfricaConquistados = cantPaisesDeContinenteConDuenoMasConquistado(
                 paises, Continente.AFRICA, jugadorActual, conquistado)
         val cantDeAmericaDelNorteConquistados =
-                cantPaisesDeContinenteConDueno(
+                cantPaisesDeContinenteConDuenoMasConquistado(
                         paises, Continente.AMERICA_DEL_NORTE, jugadorActual,
                         conquistado)
         return oceaniaConquistado && cantDeAfricaConquistados >= 6

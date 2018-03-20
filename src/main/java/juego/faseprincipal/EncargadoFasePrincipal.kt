@@ -29,6 +29,8 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
 
 
     fun comenzar() {
+        // TODO: hacer que si alguien tiene ya un continente desde el principio
+        // se le de la tarjeta de continente.
         vista.encargadoFase = this
         comienzoEtapaIncorporacion()
     }
@@ -51,6 +53,7 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
         val jugadorActual = organizadorDeTurnos.jugadorActual
         encargadoEtapaAtaqueActual = EncargadoEtapaAtaque(
                 paises, jugadores, jugadorActual,
+                tarjetasDeJugadores,
                 object : EncargadoEtapaAtaque.GanadoListener {
                     override fun gano() {
                         listener.gano(jugadorActual)
