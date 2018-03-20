@@ -21,7 +21,6 @@ class EncargadoEtapaAtaque(private val paises: List<PaisEnJuego>,
     var paisesConquistados = 0
         private set
     private var ultimoAtaque: Pair<PaisEnJuego, PaisEnJuego>? = null
-    private var ultimoDueno: Int? = null
 
     fun paisesAtacablesDesde(nombrePais: String): List<PaisEnJuego> {
         val pais = paisConNombre(paises, nombrePais)
@@ -49,64 +48,68 @@ class EncargadoEtapaAtaque(private val paises: List<PaisEnJuego>,
     }
 
     private fun conquistar(atacante: PaisEnJuego, atacado: PaisEnJuego) {
-        ultimoDueno = atacado.dueno
-        if (jugadores[jugador].objetivo!!.cumplido(
-                        paises, atacado, jugadores, jugador)) {
-            listener.gano()
-        }
         ultimoAtaque = atacante to atacado
-        vista.elegidorDeEjercitosQuePasar()
+        vista.elegidorDeEjercitosQuePasar(::pasarEjercitos)
     }
 
-    fun pasarEjercitos(ejercitos: Int) {
-        ultimoAtaque!!.first.ejercitos -= ejercitos
-        val atacado = ultimoAtaque!!.second
-        atacado.ejercitos += ejercitos
-        if (perdio(ultimoDueno!!)) {
-            jugadores[ultimoDueno!!].perdio = true
-            vista.perdio(ultimoDueno!!)
-        }
-        ultimoDueno = null
+    private fun pasarEjercitos(ejercitos: Int) {
+        val (paisAtacante, paisAtacado) = ultimoAtaque!!
+        ultimoAtaque = null
+        paisAtacante.ejercitos -= ejercitos
+        paisAtacado.ejercitos += ejercitos
 
-        val continente = atacado.pais.continente
-        // Si conquisto el continente, hay que darle tarjeta de continente.
-        if (conquistoContinente() &&
-                !canjeador.canjeoTarjetaDeContinente(jugador, continente)) {
+        val jugadorAtacado = paisAtacado.dueno
+        paisAtacado.dueno = jugador
+        paisesConquistados++
 
-            tarjetasDeJugadores.entregarTarjetaDeContinente(
-                    jugador, continente)
-        }
-
+        val continente = paisAtacado.pais.continente
         // Si el otro perdio el continente, tiene que devolver la tarjeta.
-        if (perdioContinente()) {
+        if (perdioContinente(continente, jugadorAtacado)) {
             val tarjetaDeContinente =
-                    tarjetaDeContinenteDe(atacado.dueno, continente)
+                    tarjetaDeContinenteDe(jugadorAtacado, continente)
             tarjetasDeJugadores.devolverTarjetasDeContinente(
                     setOf(tarjetaDeContinente))
         }
-        ultimoAtaque = null
 
-        atacado.dueno = jugador
-        paisesConquistados++
+        // Si conquisto el continente, hay que darle tarjeta de continente.
+        if (conquistoContinente(continente) &&
+                !canjeador.canjeoTarjetaDeContinente(jugador, continente)) {
+            tarjetasDeJugadores.entregarTarjetaDeContinente(jugador, continente)
+        }
+
+        if (perdio(jugadorAtacado)) {
+            jugadores[jugadorAtacado].perdio = true
+            // TODO: darle las tarjetas del jugador que perdio al jugador que
+            // lo conquisto.
+            vista.perdio(jugadorAtacado)
+        }
+
+        if (jugadores[jugador].objetivo!!.cumplido(
+                        paises, jugadores, jugador, jugadorAtacado)) {
+            listener.gano()
+        }
     }
 
     private fun tarjetaDeContinenteDe(jugador: Int, continente: Continente) =
             tarjetasDeJugadores.tarjetasDeContinenteDe(jugador)
                     .first { it.continente == continente }
 
-    private fun conquistoContinente(): Boolean {
-        val conquistado = ultimoAtaque!!.second
-        val continente = conquistado.pais.continente
-        return continenteConquistado(paises, continente, jugador, conquistado)
-    }
+    private fun conquistoContinente(continente: Continente) =
+            continenteOcupado(paises, continente, jugador)
 
-    private fun perdioContinente(): Boolean {
-        val conquistado = ultimoAtaque!!.second
-        val continente = conquistado.pais.continente
-        return cantPaisesDeContinenteConDueno(
-                paises, continente, conquistado.dueno) ==
-                paisesDeContinente(paises, continente).size
-    }
+    /**
+     * Determina si el [jugador] perdio el [continente] luego de que le hayan
+     * conquistado un pais de dicho [continente].
+     */
+    private fun perdioContinente(continente: Continente, jugador: Int) =
+            /*
+            Sabemos que le conquistaron un pais del continente.
+            Por lo tanto, si la cantidad de paises de ese continente
+            que el posee es igual a la cantidad de paises en el continente
+            menos el pais perdido, habra perdido el continente.
+             */
+            cantPaisesDeContinenteConDueno(paises, continente, jugador) ==
+                    paisesDeContinente(paises, continente).size - 1
 
 
     fun puedenPasarseDesde(atacante: PaisEnJuego): Int =
