@@ -15,22 +15,6 @@ fun cantPaisesDeContinenteConDueno(paises: Iterable<PaisEnJuego>,
         cantPaisesConDueno(paisesDeContinente(paises, continente), jugador)
 
 /**
- * Determina la cantidad de paises que ocupa en el [continente] el [jugador],
- * incluyendo el nuevo [paisConquistado].
- */
-fun cantPaisesDeContinenteConDuenoMasConquistado(paises: Iterable<PaisEnJuego>,
-        continente: Continente, jugador: Int,
-        paisConquistado: PaisEnJuego): Int {
-    val paisesDeContinente = paisesDeContinente(paises, continente)
-    var cantPaisesDeJugadorEnContinente =
-            cantPaisesConDueno(paisesDeContinente, jugador)
-    if (paisConquistado.pais.continente == continente) {
-        cantPaisesDeJugadorEnContinente++
-    }
-    return cantPaisesDeJugadorEnContinente
-}
-
-/**
  * Determina si el [jugador] ocupa todos los paises del [continente].
  */
 fun continenteOcupado(paises: Iterable<PaisEnJuego>, continente: Continente,
