@@ -31,15 +31,12 @@ fun cantPaisesDeContinenteConDuenoMasConquistado(paises: Iterable<PaisEnJuego>,
 }
 
 /**
- * Determina si, con el nuevo [paisConquistado],
- * el [jugador] ocupa el [continente].
+ * Determina si el [jugador] ocupa todos los paises del [continente].
  */
-fun continenteConquistado(paises: List<PaisEnJuego>, continente: Continente,
-        jugador: Int, paisConquistado: PaisEnJuego): Boolean {
+fun continenteOcupado(paises: Iterable<PaisEnJuego>, continente: Continente,
+        jugador: Int): Boolean {
     val cantPaisesDeJugadorEnContinente =
-            cantPaisesDeContinenteConDuenoMasConquistado(
-                    paises, continente, jugador, paisConquistado
-            )
+            cantPaisesDeContinenteConDueno(paises, continente, jugador)
     val cantPaisesEnContinente = paisesDeContinente(paises, continente).size
     return cantPaisesDeJugadorEnContinente == cantPaisesEnContinente
 }
