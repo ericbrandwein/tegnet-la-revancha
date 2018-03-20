@@ -19,6 +19,6 @@ interface Objetivo {
     /**
      * Determina si se puede cumplir el objetivo.
      */
-    fun puedeCumplirse(paises: List<PaisEnJuego>, jugadores: List<Jugador>,
+    fun puedeCumplirse(paises: Iterable<PaisEnJuego>, jugadores: List<Jugador>,
             jugadorActual: Int): Boolean
 }
