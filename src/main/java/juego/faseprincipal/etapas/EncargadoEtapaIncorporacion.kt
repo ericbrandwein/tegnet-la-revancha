@@ -1,5 +1,6 @@
 package juego.faseprincipal.etapas
 
+import juego.faseprincipal.GastadorDeTarjetasDePais
 import juego.faseprincipal.canjes.Canjeador
 import juego.faseprincipal.tarjetasconsimbolos.TarjetaConSimbolos
 import juego.faseprincipal.tarjetasconsimbolos.TarjetaDeContinente
@@ -15,7 +16,8 @@ private const val MINIMO_DE_EJERCITOS_INCORPORABLES = 4
 class EncargadoEtapaIncorporacion(private val jugador: Int,
         private val paises: List<PaisEnJuego>,
         private val tarjetasDeJugadores: TarjetasDeJugadores,
-        private val canjeador: Canjeador) {
+        private val canjeador: Canjeador,
+        private val gastadorDeTarjetasDePais: GastadorDeTarjetasDePais) {
     var ejercitosRestantesAIncorporar = max(
             cantPaisesConDueno(paises, jugador) / 2,
             MINIMO_DE_EJERCITOS_INCORPORABLES)
@@ -62,6 +64,8 @@ class EncargadoEtapaIncorporacion(private val jugador: Int,
 
         ejercitosRestantesAIncorporar +=
                 canjeador.canjear(jugador, tarjetasDePais, tarjetasDeContinente)
+        gastadorDeTarjetasDePais.marcarTarjetasComoNoGastadas(
+                jugador, tarjetasDePais)
         hizoCanje = true
     }
 
