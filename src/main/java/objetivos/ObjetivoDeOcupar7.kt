@@ -1,29 +1,18 @@
 package objetivos
 
-import juego.Jugador
 import paises.Continente
-import paises.PaisEnJuego
-import paises.cantPaisesDeContinenteConDuenoMasConquistado
-import paises.continenteConquistado
 
-class ObjetivoDeOcupar7 : ObjetivoDeOcupar {
+class ObjetivoDeOcupar7 : ObjetivoDeOcupar() {
     override val descripcion =
             "Ocupar América Central, 6 países de América del Sur, " +
                     "6 de Europa y 6 de Asia."
 
-    override fun cumplido(paises: List<PaisEnJuego>, conquistado: PaisEnJuego,
-            jugadores: List<Jugador>, jugadorActual: Int): Boolean {
-        val americaCentralConquistado = continenteConquistado(
-                paises, Continente.AMERICA_CENTRAL, jugadorActual, conquistado)
-        val cantAmericaDelSurConquistado =
-                cantPaisesDeContinenteConDuenoMasConquistado(
-                        paises, Continente.AMERICA_DEL_SUR, jugadorActual,
-                        conquistado)
-        val cantEuropaConquistado = cantPaisesDeContinenteConDuenoMasConquistado(
-                paises, Continente.EUROPA, jugadorActual, conquistado)
-        val cantAsiaConquistado = cantPaisesDeContinenteConDuenoMasConquistado(
-                paises, Continente.ASIA, jugadorActual, conquistado)
-        return americaCentralConquistado && cantAmericaDelSurConquistado >= 6 &&
-                cantEuropaConquistado >= 6 && cantAsiaConquistado >= 6
+    init {
+        paisesDeContinentesAOcupar = mapOf(
+                Continente.AMERICA_CENTRAL to TODOS_LOS_PAISES,
+                Continente.AMERICA_DEL_SUR to 6,
+                Continente.EUROPA to 6,
+                Continente.ASIA to 6
+        )
     }
 }
