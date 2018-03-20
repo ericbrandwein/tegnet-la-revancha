@@ -4,7 +4,7 @@ import juego.Jugador
 import paises.PaisEnJuego
 import paises.cantPaisesConDueno
 
-class ObjetivoComun : ObjetivoDeOcupar {
+class ObjetivoComun : ObjetivoDeOcupar() {
     override val descripcion = "Ocupar 45 países."
 
     override fun cumplido(paises: Iterable<PaisEnJuego>,
