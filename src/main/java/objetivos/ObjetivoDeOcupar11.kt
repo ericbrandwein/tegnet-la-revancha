@@ -3,10 +3,9 @@ package objetivos
 import juego.Jugador
 import paises.Continente
 import paises.PaisEnJuego
-import paises.cantPaisesDeContinenteConDuenoMasConquistado
-import paises.continenteConquistado
+import paises.cantPaisesDeContinenteConDueno
 
-class ObjetivoDeOcupar11 : ObjetivoDeOcupar {
+class ObjetivoDeOcupar11 : ObjetivoDeOcupar() {
     override val descripcion =
             "Ocupar Africa, 4 países de Europa, 4 países de Asia y 6 islas, " +
                     "repartidas en por lo menos 3 continentes."
@@ -17,23 +16,35 @@ class ObjetivoDeOcupar11 : ObjetivoDeOcupar {
             "Filipinas", "Tonga", "Tasmania", "Nueva Zelandia"
     )
 
-    override fun cumplido(paises: List<PaisEnJuego>, conquistado: PaisEnJuego,
-            jugadores: List<Jugador>, jugadorActual: Int): Boolean {
-        val africaConquistado = continenteConquistado(
-                paises, Continente.AFRICA, jugadorActual, conquistado)
-        val cantEuropaConquistados = cantPaisesDeContinenteConDuenoMasConquistado(
-                paises, Continente.EUROPA, jugadorActual, conquistado)
-        val cantAsiaConquistados = cantPaisesDeContinenteConDuenoMasConquistado(
-                paises, Continente.ASIA, jugadorActual, conquistado)
+    private val PAISES_A_OCUPAR_EUROPA = 4
+    private val PAISES_A_OCUPAR_ASIA = 4
+
+    init {
+        paisesDeContinentesAOcupar = mapOf(
+                Continente.AFRICA to TODOS_LOS_PAISES,
+                Continente.EUROPA to PAISES_A_OCUPAR_EUROPA,
+                Continente.ASIA to PAISES_A_OCUPAR_ASIA
+        )
+    }
+
+    override fun cumplido(paises: Iterable<PaisEnJuego>,
+            jugadores: List<Jugador>, jugadorActual: Int,
+            jugadorAtacado: Int): Boolean {
+        val ocupadosPaisesDeContinentes =
+                super.cumplido(paises, jugadores, jugadorActual, jugadorAtacado)
+
+        val cantEuropaConquistados = cantPaisesDeContinenteConDueno(
+                paises, Continente.EUROPA, jugadorActual)
+        val cantAsiaConquistados = cantPaisesDeContinenteConDueno(
+                paises, Continente.ASIA, jugadorActual)
         // paises que pueden contar entre las islas que se necesitan
-        val sobranDeEuropa = cantEuropaConquistados - 4
-        val sobranDeAsia = cantAsiaConquistados - 4
+        val sobranDeEuropa = cantEuropaConquistados - PAISES_A_OCUPAR_EUROPA
+        val sobranDeAsia = cantAsiaConquistados - PAISES_A_OCUPAR_ASIA
         val islasDeJugadorAprobadas = islasAprobadas(
                 paises, jugadorActual, sobranDeEuropa, sobranDeAsia)
         val sonDeTresContinentes =
                 sonDeTresContinentesDiferentes(islasDeJugadorAprobadas)
-        return africaConquistado && cantEuropaConquistados >= 4 &&
-                cantAsiaConquistados >= 4 &&
+        return ocupadosPaisesDeContinentes &&
                 islasDeJugadorAprobadas.size >= 6 &&
                 sonDeTresContinentes
     }
@@ -42,44 +53,46 @@ class ObjetivoDeOcupar11 : ObjetivoDeOcupar {
             islas: List<PaisEnJuego>): Boolean =
             islas.distinctBy { it.pais.continente }.size >= 3
 
-
-    private fun islasAprobadas(paises: List<PaisEnJuego>,
+    /**
+     * Devuelve las islas que son del jugador que son elegibles para ser parte
+     * de las islas que pide el objetivo.
+     */
+    private fun islasAprobadas(paises: Iterable<PaisEnJuego>,
             jugadorActual: Int, sobranDeEuropa: Int,
             sobranDeAsia: Int): List<PaisEnJuego> {
-        var maxIslasAprobadasEnEuropa = sobranDeEuropa
-        var maxIslasAprobadasEnAsia = sobranDeAsia
-        return paises.filter { nombresIslas.contains(it.pais.nombre) }
-                .filter { it.dueno == jugadorActual }
-                .filter {
-                    // la isla no puede ser de Africa,
-                    // porque conquistar todo Africa es parte del objetivo
-                    it.pais.continente != Continente.AFRICA
-                }
-                .filter {
-                    // contamos solo las islas que no estan incluidas
-                    // dentro de los 4 paises de europa que necesitamos
-                    var aprobado = true
-                    if (it.pais.continente == Continente.EUROPA) {
-                        if (maxIslasAprobadasEnEuropa < 1) {
-                            aprobado = false
-                        } else {
-                            maxIslasAprobadasEnEuropa--
+        val islasDeJugador =
+                paises.filter { nombresIslas.contains(it.pais.nombre) }
+                        .filter { it.dueno == jugadorActual }
+                        .filter {
+                            // la isla no puede ser de Africa,
+                            // porque conquistar todo Africa es parte del objetivo
+                            it.pais.continente != Continente.AFRICA
                         }
-                    }
-                    aprobado
+        // Solo aprobamos hasta una cantidad maxima de islas de europa
+        // y de asia, porque las otras las estamos contando en la otra parte
+        // del objetivo.
+        val islasSinSobrantesDeEuropa = sacarPaisesSobrantesDeContinente(
+                islasDeJugador, Continente.EUROPA, sobranDeEuropa)
+        return sacarPaisesSobrantesDeContinente(
+                islasSinSobrantesDeEuropa, Continente.ASIA, sobranDeAsia)
+    }
+
+    /**
+     * Saca elementos de un iterable del [continente] para que no haya más del [maximo].
+     */
+    fun sacarPaisesSobrantesDeContinente(paises: Iterable<PaisEnJuego>,
+            continente: Continente, maximo: Int): List<PaisEnJuego> {
+        var cantidad = maximo
+        return paises.filter {
+            var aprobado = true
+            if (it.pais.continente == continente) {
+                if (cantidad < 1) {
+                    aprobado = false
+                } else {
+                    cantidad--
                 }
-                .filter {
-                    // contamos solo las islas que no estan incluidas
-                    // dentro de los 4 paises de asia que necesitamos
-                    var aprobado = true
-                    if (it.pais.continente == Continente.ASIA) {
-                        if (maxIslasAprobadasEnAsia < 1) {
-                            aprobado = false
-                        } else {
-                            maxIslasAprobadasEnAsia--
-                        }
-                    }
-                    aprobado
-                }
+            }
+            aprobado
+        }
     }
 }
