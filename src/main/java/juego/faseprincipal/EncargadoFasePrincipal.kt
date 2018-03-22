@@ -22,7 +22,7 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     private val mazoDeSituacion: MazoMezclante<TarjetaDeSituacion> =
             armarMazoDeSituacion()
 
-    var tarjetaDeSituacion: TarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
+    lateinit var tarjetaDeSituacion: TarjetaDeSituacion
         private set
 
     private var encargadoEtapaAtaqueActual: EncargadoEtapaAtaque? = null
@@ -43,8 +43,7 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
      */
     private val EJERCITOS_AGREGADOS_POR_TARJETA = 4
 
-    private val jugadorActual
-        get() = organizadorDeTurnos.jugadorActual
+    private val jugadorActual get() = organizadorDeTurnos.jugadorActual
 
     fun comenzar() {
         darTarjetasDeContinente()
@@ -67,6 +66,10 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     }
 
     private fun comenzarTurno() {
+        if (organizadorDeTurnos.primerTurnoDeVuelta){
+            tarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
+        }
+
         if (organizadorDeTurnos.vueltaActual == 1) {
             comienzoEtapaAtaque()
         } else {
@@ -122,10 +125,7 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
         }
         agregarEjercitosPorTarjetas()
         encargadoEtapaAtaqueActual = null
-        if (organizadorDeTurnos.pasarTurno()) {
-            sacarTarjetaDeSituacion()
-        }
-
+        organizadorDeTurnos.pasarTurno()
         comenzarTurno()
     }
 
@@ -151,10 +151,6 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     private fun chequearEtapa(etapaNecesaria: EtapaDeTurno) {
         if (etapa != etapaNecesaria)
             throw EtapaEquivocadaException(etapa, etapaNecesaria)
-    }
-
-    private fun sacarTarjetaDeSituacion() {
-        tarjetaDeSituacion = mazoDeSituacion.sacarTarjeta()
     }
 
     interface GanadoListener {

@@ -7,6 +7,8 @@ open class OrganizadorDeTurnos(val jugadores: List<Jugador>, var mano: Int) {
         protected set
     var vueltaActual = 1
         protected set
+    var primerTurnoDeVuelta = true
+        protected set
 
     fun jugadorALaIzquierda() =
             (jugadorActual + 1) % jugadores.size
@@ -14,16 +16,16 @@ open class OrganizadorDeTurnos(val jugadores: List<Jugador>, var mano: Int) {
     /**
      * Pasa el turno al siguiente jugador
      *
-     * @return `true` si pasar el turno hizo que se comienze una nueva vuelta.
+     * @return `true` si pasar el turno hizo que se comience una nueva vuelta.
      */
     fun pasarTurno() : Boolean {
         jugadorActual = jugadorALaIzquierda()
-        if (jugadorActual == mano) {
+        primerTurnoDeVuelta = jugadorActual == mano
+        if (primerTurnoDeVuelta) {
             vueltaActual++
             nuevaVuelta()
-            return true
         }
-        return false
+        return primerTurnoDeVuelta
     }
 
     protected open fun nuevaVuelta() {}
