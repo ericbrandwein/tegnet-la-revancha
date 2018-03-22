@@ -52,6 +52,9 @@ class Juego(val jugadores: List<Jugador>, var vista: VistaJuego) {
     }
 
     private fun repartirObjetivos() {
+        // TODO: Hacer que los objetivos dependan de la cantidad de personas
+        // que haya jugando. Si son dos, son dos objetivos que
+        // se tienen que cumplir.
         var objetivos: List<Objetivo> = listaDeObjetivos().shuffled()
         jugadores.forEach {
             it.objetivo = objetivos.last()
