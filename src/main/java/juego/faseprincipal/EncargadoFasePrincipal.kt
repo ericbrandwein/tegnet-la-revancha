@@ -48,9 +48,16 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
     fun comenzar() {
         // TODO: hacer que si alguien tiene ya un continente desde el principio
         // se le de la tarjeta de continente.
-        // TODO: Hacer que en la primera vuelta se saltee la incorporacion.
         vista.encargadoFase = this
-        comienzoEtapaIncorporacion()
+        comenzarTurno()
+    }
+
+    private fun comenzarTurno() {
+        if (organizadorDeTurnos.vueltaActual == 1) {
+            comienzoEtapaAtaque()
+        } else {
+            comienzoEtapaIncorporacion()
+        }
     }
 
     private fun comienzoEtapaIncorporacion() {
@@ -104,12 +111,14 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
         if (organizadorDeTurnos.pasarTurno()) {
             sacarTarjetaDeSituacion()
         }
-        comienzoEtapaIncorporacion()
+
+        comenzarTurno()
     }
 
     /**
-     * Agrega 4 ejercitos a los paises para los que el jugador actual
-     * tenga las tarjetas, si es que no se agregaron todavia.
+     * Agrega [EJERCITOS_AGREGADOS_POR_TARJETA] ejercitos a los paises
+     * para los que el jugador actual tenga las tarjetas,
+     * si es que no se agregaron todavia.
      */
     private fun agregarEjercitosPorTarjetas() {
         val nombresPaises =

@@ -5,6 +5,8 @@ import juego.Jugador
 open class OrganizadorDeTurnos(val jugadores: List<Jugador>, var mano: Int) {
     var jugadorActual = mano
         protected set
+    var vueltaActual = 1
+        protected set
 
     fun jugadorALaIzquierda() =
             (jugadorActual + 1) % jugadores.size
@@ -17,6 +19,7 @@ open class OrganizadorDeTurnos(val jugadores: List<Jugador>, var mano: Int) {
     fun pasarTurno() : Boolean {
         jugadorActual = jugadorALaIzquierda()
         if (jugadorActual == mano) {
+            vueltaActual++
             nuevaVuelta()
             return true
         }
