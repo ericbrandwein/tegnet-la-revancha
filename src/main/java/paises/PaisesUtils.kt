@@ -24,3 +24,6 @@ fun continenteOcupado(paises: Iterable<PaisEnJuego>, continente: Continente,
     val cantPaisesEnContinente = paisesDeContinente(paises, continente).size
     return cantPaisesDeJugadorEnContinente == cantPaisesEnContinente
 }
+
+fun continentesOcupados(paises: Iterable<PaisEnJuego>, jugador: Int) =
+        Continente.values().filter { continenteOcupado(paises, it, jugador) }

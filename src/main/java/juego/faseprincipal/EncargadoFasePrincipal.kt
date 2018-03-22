@@ -11,6 +11,7 @@ import juego.faseprincipal.situacion.armarMazoDeSituacion
 import juego.faseprincipal.tarjetasconsimbolos.TarjetasDeJugadores
 import juego.mazo.MazoMezclante
 import paises.PaisEnJuego
+import paises.continentesOcupados
 
 class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
         val jugadores: List<Jugador>, mano: Int,
@@ -46,10 +47,23 @@ class EncargadoFasePrincipal(val paises: List<PaisEnJuego>,
         get() = organizadorDeTurnos.jugadorActual
 
     fun comenzar() {
-        // TODO: hacer que si alguien tiene ya un continente desde el principio
-        // se le de la tarjeta de continente.
+        darTarjetasDeContinente()
         vista.encargadoFase = this
         comenzarTurno()
+    }
+
+    /**
+     * Entrega tarjetas de continente a los jugadores a los que les corresponda.
+     */
+    private fun darTarjetasDeContinente() {
+        (1..jugadores.size)
+                .map { continentesOcupados(paises, it) }
+                .forEachIndexed { index, continentes ->
+                    continentes.forEach { continente ->
+                        tarjetasDeJugadores.entregarTarjetaDeContinente(
+                                index, continente)
+                    }
+                }
     }
 
     private fun comenzarTurno() {
